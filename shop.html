@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Official Web Shop (−30% Direct Visa) — UNBOUND SUNS</title>
+  <meta name="description" content="Official standalone Web Shop for Unbound Suns. Save 30% compared to in-app store pricing on all 9 Citadel Gold Packs, 30-Day Premium Pass, and Starter/Commander Bundles via Visa and Mastercard." />
+  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@600;700;800;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body data-page="shop">
+  <div id="site-header"></div>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <div class="eyebrow gold">OFFICIAL DIRECT-TO-PILOT STOREFRONT</div>
+        <h1 class="section-title" style="margin-bottom:12px">CITADEL <span>WEB SHOP</span> · SAVE 30%</h1>
+        <p class="section-lead" style="max-width:780px">
+          Direct international Visa, Mastercard, JCB, and Amex checkout with <strong>30% lower prices than in-app mobile store pricing</strong> across all 9 official Citadel packs. Every purchase credits directly to your shared AETHER-01 server account and syncs across PC and Mobile.
+        </p>
+        <div class="visa-badges" style="margin-top:18px">
+          <span class="visa-badge">VISA</span>
+          <span class="visa-badge">MASTERCARD</span>
+          <span class="visa-badge">JCB</span>
+          <span class="visa-badge">AMEX</span>
+          <span class="visa-badge" style="border-color:rgba(56,242,158,0.45);color:var(--green)">3D SECURE 2.0</span>
+          <span class="visa-badge" style="border-color:rgba(240,185,86,0.45);color:var(--gold-bright)">−30% VS IN-APP</span>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding-top:42px">
+      <div class="container">
+        <!-- Regional Compliance Notice (Global USD, 100% Excluding Vietnam) -->
+        <div class="region-notice">
+          <div>
+            <strong>GLOBAL INTERNATIONAL WEB STORE (USD ONLY)</strong> — Operated independently outside mobile app stores for international players. Restricted territories (including Vietnam) are excluded at edge/payment level.
+          </div>
+          <span style="font-family:var(--font-tech);font-weight:700;letter-spacing:0.12em;color:var(--cyan)">ZERO APP-STORE MARKUP</span>
+        </div>
+
+        <!-- Pilot Account Binding Bar -->
+        <div class="pilot-bind-bar">
+          <div>
+            <div style="font-family:var(--font-display);font-size:1rem;margin-bottom:4px">1. LINK YOUR PILOT ACCOUNT</div>
+            <div id="pilot-bind-state" style="font-size:0.9rem"></div>
+          </div>
+          <div class="pilot-bind-form">
+            <input id="pilot-bind-input" class="input-tech" type="text" placeholder="Enter Pilot Username or Account ID…" aria-label="Pilot Username or Account ID" />
+            <button type="button" class="btn btn-cyan btn-sm" id="pilot-bind-btn">Bind Pilot ID</button>
+          </div>
+        </div>
+
+        <!-- Featured Bundles (3 Official Packs) -->
+        <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:14px;margin-bottom:20px">
+          <div>
+            <div class="eyebrow gold">SPECIAL BUNDLES &amp; VIP PASS</div>
+            <h2 style="font-family:var(--font-display);margin:6px 0 0;font-size:1.55rem">FEATURED CITADEL PACKAGES</h2>
+          </div>
+          <span style="color:var(--text-secondary);font-size:0.9rem">Exact server SKUs · Verified double-entry credit</span>
+        </div>
+        <div class="shop-bundles-grid" id="shop-bundles"></div>
+
+        <!-- 6 Tiered Gold Reserves -->
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;margin-bottom:22px">
+          <div>
+            <div class="eyebrow">DIRECT GOLD RESERVES · ALL 6 TIERS</div>
+            <h2 style="font-family:var(--font-display);margin:6px 0 0;font-size:1.55rem">GOLD TOP-UP VAULTS (−30% DIRECT)</h2>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="first-time-toggle" checked />
+            <span>Preview First-Time 2× Gold Bonus</span>
+          </label>
+        </div>
+        <div class="gold-grid" id="shop-gold"></div>
+
+        <!-- Security & Delivery Guarantee -->
+        <div class="panel-box" style="margin-top:48px;border-color:rgba(56,232,255,0.26)">
+          <div class="eyebrow" style="margin-bottom:10px">HOW DIRECT WEB TOP-UP WORKS</div>
+          <div class="split-2">
+            <div>
+              <h3 style="font-family:var(--font-display);font-size:1.06rem;margin:0 0 8px">Why is Web Store 30% Cheaper?</h3>
+              <p style="color:var(--text-secondary);font-size:0.92rem;margin:0">
+                By purchasing directly on our standalone web portal with Visa or Mastercard, we pass the 30% platform distribution fee savings straight back to pilots while delivering the exact same Gold, Sovereign Seals (◊), Premium Pass days, and first-time 2× bonuses.
+              </p>
+            </div>
+            <div>
+              <h3 style="font-family:var(--font-display);font-size:1.06rem;margin:0 0 8px">Authoritative Idempotent Delivery</h3>
+              <p style="color:var(--text-secondary);font-size:0.92rem;margin:0">
+                Every Visa order uses an <code>Idempotency-Key</code> and double-entry SQLite transaction audit on <strong>AETHER-01</strong>. Your Gold and Sovereign Seals arrive automatically on your Pilot Account across both PC and Android clients with zero risk of double-charging.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Visa / Mastercard Direct Checkout Modal -->
+  <div class="modal-backdrop" id="checkout-modal" role="dialog" aria-modal="true" aria-label="Visa Card Checkout">
+    <div class="modal-dialog">
+      <button type="button" class="modal-close" data-close-modal aria-label="Close">&times;</button>
+      <div id="checkout-modal-body"></div>
+    </div>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/data/catalog.js"></script>
+  <script src="assets/js/layout.js"></script>
+  <script src="assets/js/shop.js"></script>
+</body>
+</html>

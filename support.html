@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pilot Support, Closed Beta &amp; FAQ — UNBOUND SUNS</title>
+  <meta name="description" content="Get support for Unbound Suns: Closed Beta access, FAQ, bug reports, billing help, and account data deletion requests." />
+  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@600;700;800;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body data-page="support">
+  <div id="site-header"></div>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <div class="eyebrow">AETHERFORGE SUPPORT COMMAND</div>
+        <h1 class="section-title" style="margin-bottom:12px">PILOT <span>SUPPORT</span> &amp; FAQ</h1>
+        <p class="section-lead" style="max-width:740px">
+          Answers on gameplay mechanics, 100-pilot zone caps, Closed Beta recruitment, direct Visa Web Shop billing, and account data deletion.
+        </p>
+      </div>
+    </section>
+
+    <section style="padding-top:48px">
+      <div class="container">
+        <div id="beta-access" class="panel-box" style="margin-bottom:40px;border-color:rgba(240,185,86,0.4)">
+          <div class="eyebrow gold" style="margin-bottom:8px">PIONEER CLOSED BETA PROGRAM</div>
+          <h2 style="font-family:var(--font-display);font-size:1.35rem;margin:0 0 10px">HOW TO JOIN INTERNATIONAL CLOSED BETA</h2>
+          <p style="color:var(--text-secondary);margin:0 0 16px">
+            Unbound Suns runs international Android Closed Testing waves alongside Windows 64-bit PC playtests on our live AETHER-01 single shard. Submit your platform and region below to request an invite link, or verify your pilot account in the Command Portal.
+          </p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
+            <a href="#ticket-dispatch" class="btn btn-gold btn-sm">Request Beta Invite</a>
+            <a href="privacy.html#data-deletion" class="btn btn-ghost btn-sm">Account &amp; Data Deletion Guide</a>
+          </div>
+        </div>
+
+        <div class="split-2">
+          <div>
+            <div class="eyebrow" style="margin-bottom:8px">KNOWLEDGE BASE</div>
+            <h2 style="font-family:var(--font-display);font-size:1.35rem;margin:0 0 18px">FREQUENTLY ASKED QUESTIONS</h2>
+            <div class="faq-list" id="faq-list"></div>
+          </div>
+
+          <div class="panel-box" id="ticket-dispatch">
+            <div class="eyebrow gold" style="margin-bottom:8px">DIRECT ENGINEERING DISPATCH</div>
+            <h2 style="font-family:var(--font-display);font-size:1.3rem;margin:0 0 16px">SUBMIT TICKET / BUG REPORT</h2>
+            <form id="support-form">
+              <div class="form-group">
+                <label for="sup-cat">Request Category</label>
+                <select id="sup-cat">
+                  <option value="beta">Closed Beta Access Request</option>
+                  <option value="bug">Bug Report / Gameplay Issue</option>
+                  <option value="billing">Web Shop / Google Play Billing Inquiry</option>
+                  <option value="anticheat">Appeal / Fair Play Inquiry</option>
+                  <option value="data_deletion">Data Deletion Request (7-Day SLA)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="sup-pilot">Pilot Username or Account ID</label>
+                <input id="sup-pilot" type="text" placeholder="e.g. CommanderVance" />
+              </div>
+              <div class="form-group">
+                <label for="sup-msg">Details</label>
+                <textarea id="sup-msg" rows="5" required placeholder="Describe your device, sector ID, order reference, or request details…"></textarea>
+              </div>
+              <button type="submit" class="btn btn-cyan" style="width:100%">Send Support Dispatch</button>
+            </form>
+            <div id="support-msg" class="status-msg"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/data/catalog.js"></script>
+  <script src="assets/js/layout.js"></script>
+  <script src="assets/js/account.js"></script>
+</body>
+</html>

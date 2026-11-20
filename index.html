@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UNBOUND SUNS — Full-Loot Open-World Sci-Fi Sandbox MMORPG</title>
+  <meta name="description" content="Command your fleet across 349 interconnected sectors in Unbound Suns — a strictly online, single-shard full-loot sci-fi sandbox MMORPG with a 100% player-driven economy and 20Hz authoritative combat." />
+  <meta property="og:title" content="UNBOUND SUNS — Full-Loot Open-World Space MMORPG" />
+  <meta property="og:description" content="349 sectors. 4 security frontiers. 100-pilot zone caps. Forge hulls, conquer Black-Zone singularities, and control the Citadel market." />
+  <meta property="og:image" content="assets/img/keyart/hero_keyart.jpg" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@600;700;800;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body data-page="home">
+  <div id="site-header"></div>
+
+  <main>
+    <!-- 1. FULL-VIEWPORT AAA CINEMATIC HERO + THREE.JS 3D WEBGL SPACE CANVAS -->
+    <section class="hero" id="top">
+      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="hero-scrim" aria-hidden="true"></div>
+      <canvas id="hero-3d-canvas" aria-hidden="true"></canvas>
+
+      <div class="hero-content-wrap">
+        <div class="container hero-grid">
+          <div>
+            <div class="hero-badge">
+              <span>◆ SINGLE-SHARD OPEN-WORLD SPACE SANDBOX</span>
+            </div>
+            <h1 class="hero-title">
+              UNBOUND
+              <span class="accent">SUNS</span>
+            </h1>
+            <p class="hero-sub">
+              Command your starship across <strong>349 living sectors</strong> in a strictly online, full-loot sci-fi MMORPG.
+              Forge every hull and railgun from mined Voidite, dominate the player-driven Citadel Exchange, and survive 20Hz server-authoritative fleet battles.
+            </p>
+            <div class="hero-ctas">
+              <button type="button" class="btn btn-gold" data-open-play>Deploy Now — Free to Play</button>
+              <a href="#atlas" class="btn btn-cyan">Explore 349-Sector Atlas</a>
+              <a href="shop.html" class="btn btn-ghost">Web Shop · −30% Direct</a>
+            </div>
+            <div class="hero-platforms">
+              <span><i></i>Android 12+ (Cross-Play)</span>
+              <span><i></i>Windows 64-Bit PC</span>
+              <span><i></i>100% Online Authoritative</span>
+            </div>
+          </div>
+
+          <div class="hero-showcase">
+            <aside class="hero-hud-card" aria-label="Featured Flagship Telemetry">
+              <div class="hud-header">
+                <span>FLAGSHIP TELEMETRY</span>
+                <span style="color:var(--gold-bright)">AETHER-01 SHARD</span>
+              </div>
+              <div class="hud-ship-stage">
+                <img src="assets/img/ships/fns6.png" alt="Sovereign Solar Flagship" />
+              </div>
+              <div class="hud-meta-grid">
+                <div class="hud-kv">
+                  <label>Flagship Class</label>
+                  <strong>Sovereign Solar</strong>
+                </div>
+                <div class="hud-kv">
+                  <label>Simulation Tick</label>
+                  <strong style="color:var(--cyan)">20 Hz UDP Auth</strong>
+                </div>
+                <div class="hud-kv">
+                  <label>Sector Cap</label>
+                  <strong>100 Pilots / Zone</strong>
+                </div>
+                <div class="hud-kv">
+                  <label>Economy Audit</label>
+                  <strong style="color:var(--green)">Double-Entry Zero-Dupe</strong>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </div>
+
+      <div class="telemetry-strip">
+        <div class="container" style="padding:0">
+          <div class="telemetry-grid">
+            <div class="telemetry-cell">
+              <span class="telemetry-val">349</span>
+              <span class="telemetry-lbl">Interconnected Sectors</span>
+            </div>
+            <div class="telemetry-cell">
+              <span class="telemetry-val">24</span>
+              <span class="telemetry-lbl">Orbital Citadels</span>
+            </div>
+            <div class="telemetry-cell">
+              <span class="telemetry-val">100</span>
+              <span class="telemetry-lbl">Max Pilots / Sector</span>
+            </div>
+            <div class="telemetry-cell">
+              <span class="telemetry-val">22</span>
+              <span class="telemetry-lbl">Foundry Craft Recipes</span>
+            </div>
+            <div class="telemetry-cell">
+              <span class="telemetry-val">20 HZ</span>
+              <span class="telemetry-lbl">Authoritative Physics</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. FOUR CORE PILLARS -->
+    <section id="pillars">
+      <div class="container">
+        <div class="section-header center reveal">
+          <div class="eyebrow">THE SANDBOX UNIVERSE</div>
+          <h2 class="section-title">FORGE YOUR <span>SOVEREIGNTY</span></h2>
+          <p class="section-lead">
+            Inspired by deep full-loot sandboxes, every weapon fired, hull lost, and mineral mined leaves a permanent mark on the shared single-shard economy.
+          </p>
+        </div>
+
+        <div class="pillars-grid reveal">
+          <article class="pillar-card">
+            <div class="pillar-art">
+              <img src="assets/img/scenery/black_abyssal_singularity.png" alt="Black Abyssal Singularity" loading="lazy" />
+            </div>
+            <div class="pillar-body">
+              <div class="pillar-tag">RISK &amp; REWARD</div>
+              <h3>Full-Loot Frontiers</h3>
+              <p>Farm safely in 108 Blue sectors, test fittings in Yellow space, or plunge into 129 Red &amp; Black sectors where victory claims enemy cargo and wreckage.</p>
+            </div>
+          </article>
+
+          <article class="pillar-card">
+            <div class="pillar-art">
+              <img src="assets/img/scenery/citadel_core_world.png" alt="Citadel Core World" loading="lazy" />
+            </div>
+            <div class="pillar-body">
+              <div class="pillar-tag">PLAYER MARKET</div>
+              <h3>100% Player Economy</h3>
+              <p>Mine Ferrite through Voidite, craft T1–T6 Titanium &amp; Bionic modules across 22 Foundry recipes, and trade via live Citadel OrderBooks &amp; atomic P2P swaps.</p>
+            </div>
+          </article>
+
+          <article class="pillar-card">
+            <div class="pillar-art">
+              <img src="assets/img/scenery/red_shattered_dreadnought.png" alt="Shattered Dreadnought" loading="lazy" />
+            </div>
+            <div class="pillar-body">
+              <div class="pillar-tag">ZERO EXPLOITS</div>
+              <h3>20Hz Server Authority</h3>
+              <p>Newtonian drift flight, authenticated UDP tickets, server-owned PvE mob HP, stealth culling anti-wallhack, and real-time speed/tamper auto-kick guards.</p>
+            </div>
+          </article>
+
+          <article class="pillar-card">
+            <div class="pillar-art">
+              <img src="assets/img/scenery/citadel_dyson_halo.png" alt="Citadel Dyson Halo" loading="lazy" />
+            </div>
+            <div class="pillar-body">
+              <div class="pillar-tag">FLEET WARFARE</div>
+              <h3>Guilds &amp; 100-Pilot Caps</h3>
+              <p>Organize squadrons around shared Guild Vaults, hunt Central PK World Bosses, and enjoy smooth fleet clashes backed by a deterministic 100-pilot zone ceiling.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. INTERACTIVE 349-SECTOR LIVE STAR ATLAS (POWERED BY REAL WORLD.JSON) -->
+    <section class="atlas-section" id="atlas">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="eyebrow">LIVE GALACTIC TOPOLOGY</div>
+          <h2 class="section-title">INTERACTIVE <span>349-SECTOR</span> STAR ATLAS</h2>
+          <p class="section-lead">
+            Inspect the actual warp network running on our cloud shard. Drag to pan, scroll to zoom, filter by security tier, or click any jump gate to plot your route from <code>station_a</code> to <code>central_pk_zone</code>.
+          </p>
+        </div>
+
+        <div class="atlas-toolbar reveal">
+          <div class="filter-group" role="group" aria-label="Sector Filters">
+            <button type="button" class="chip active" data-filter="ALL">All Sectors (349)</button>
+            <button type="button" class="chip" data-filter="Blue">Blue Safe (108)</button>
+            <button type="button" class="chip" data-filter="Yellow">Yellow (112)</button>
+            <button type="button" class="chip" data-filter="Red">Red Lethal (76)</button>
+            <button type="button" class="chip" data-filter="Black">Black Void (53)</button>
+            <button type="button" class="chip" data-filter="STATION">◆ Stations (24)</button>
+          </div>
+          <div class="atlas-search">
+            <input id="atlas-search-input" type="search" placeholder="Search sector (e.g. central_pk)…" aria-label="Search sector" />
+          </div>
+        </div>
+
+        <div class="atlas-shell reveal">
+          <div class="atlas-viewport">
+            <canvas id="atlas-canvas" aria-label="Interactive 349-sector map of Unbound Suns"></canvas>
+            <div class="atlas-hint">DRAG TO PAN · SCROLL TO ZOOM · CLICK SECTOR TO INSPECT</div>
+            <div class="atlas-controls">
+              <button type="button" class="atlas-btn" id="atlas-zoom-in" title="Zoom In">+</button>
+              <button type="button" class="atlas-btn" id="atlas-zoom-out" title="Zoom Out">−</button>
+              <button type="button" class="atlas-btn" id="atlas-reset" title="Reset View">⟲</button>
+            </div>
+          </div>
+          <aside class="atlas-dossier" id="atlas-dossier">
+            <p style="color:var(--text-secondary)">Loading 349-sector star topology…</p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. INTERACTIVE FLEET HANGAR SHOWCASE -->
+    <section id="fleet">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="eyebrow gold">CITADEL SHIPYARD DRYDOCK</div>
+          <h2 class="section-title">COMMAND <span>T1 TO T6</span> WARSHIPS</h2>
+          <p class="section-lead">
+            From agile twin-thruster Scout Interceptors to Voidite-forged Abyssal Dreadnoughts. Select any hull below to inspect combat telemetry and authentic Foundry crafting requirements.
+          </p>
+        </div>
+
+        <div class="fleet-layout reveal">
+          <div class="fleet-list" id="fleet-list" role="tablist" aria-label="Ship Classes"></div>
+          <div class="hangar-stage" id="hangar-stage"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. FOUR SECURITY FRONTIERS + FULL-BLEED WARFARE BANNER -->
+    <section class="warfare-section" id="zones">
+      <div class="warfare-bg" aria-hidden="true"></div>
+      <div class="warfare-scrim" aria-hidden="true"></div>
+      <div class="container warfare-inner">
+        <div class="section-header center reveal">
+          <div class="eyebrow">HIGH STAKES · HIGH REWARD</div>
+          <h2 class="section-title">FOUR <span>SECURITY FRONTIERS</span></h2>
+          <p class="section-lead">
+            Every jump closer to the Abyssal Core multiplies your Silver bounty and unlocks rarer minerals—at the price of relentless full-loot warfare.
+          </p>
+        </div>
+
+        <div class="frontier-tabs reveal" id="frontier-tabs" role="tablist" aria-label="Security Frontiers"></div>
+        <div class="frontier-panel reveal" id="frontier-panel"></div>
+      </div>
+    </section>
+
+    <!-- 6. CITADEL ECONOMY & TRANSPARENT SOVEREIGN BANNERS -->
+    <section id="economy">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="eyebrow gold">FAIR PROGRESSION · SERVER HARD PITY</div>
+          <h2 class="section-title">CITADEL FOUNDRY &amp; <span>ARMADA BANNERS</span></h2>
+          <p class="section-lead">
+            Craft gear deterministically at the Citadel Foundry, trade on the live OrderBook, or requisition crates through server-audited banners with transparent hard-pity guarantees.
+          </p>
+        </div>
+
+        <div class="banners-grid reveal" id="banners-grid"></div>
+      </div>
+    </section>
+
+    <!-- 7. DEV DISPATCHES & PATCH NOTES -->
+    <section id="news" style="border-top:1px solid rgba(116,178,255,0.1)">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="eyebrow">ENGINEERING &amp; SHARD LOGS</div>
+          <h2 class="section-title">LATEST <span>DISPATCHES</span></h2>
+          <p class="section-lead">
+            Live infrastructure updates, combat balance changes, and Closed Beta milestones direct from AetherForge Interactive.
+          </p>
+        </div>
+
+        <div class="news-grid reveal" id="news-grid"></div>
+      </div>
+    </section>
+
+    <!-- 8. CLOSING CALL TO ACTION -->
+    <section style="padding-top:32px">
+      <div class="container reveal">
+        <div class="cta-banner">
+          <div class="eyebrow gold" style="justify-content:center">ENTER THE SINGLE SHARD</div>
+          <h2>READY TO LAUNCH YOUR FLEET?</h2>
+          <p>
+            Join international pilots across Android and Windows PC on AETHER-01, or visit our standalone Official Web Shop for direct Visa/Mastercard bundles at 30% off in-app prices.
+          </p>
+          <div class="cta-actions">
+            <button type="button" class="btn btn-gold" data-open-play>Deploy to AETHER-01</button>
+            <a href="shop.html" class="btn btn-cyan">Official Web Shop (−30%)</a>
+            <a href="account.html" class="btn btn-ghost">Pilot Command Portal</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- News Reader Modal -->
+  <div class="modal-backdrop" id="news-modal" role="dialog" aria-modal="true">
+    <div class="modal-dialog">
+      <button type="button" class="modal-close" data-close-news aria-label="Close">&times;</button>
+      <div id="news-modal-body"></div>
+    </div>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/data/catalog.js"></script>
+  <script src="assets/js/layout.js"></script>
+  <script type="module" src="assets/js/hero3d.js"></script>
+  <script src="assets/js/atlas.js"></script>
+  <script src="assets/js/home.js"></script>
+</body>
+</html>

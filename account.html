@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pilot Command Portal — UNBOUND SUNS</title>
+  <meta name="description" content="Sign in to your Unbound Suns Pilot Account, inspect live AETHER-01 shard status, and manage cross-platform credentials." />
+  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@600;700;800;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body data-page="account">
+  <div id="site-header"></div>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <div class="eyebrow">AETHER-01 COMMAND LINK</div>
+        <h1 class="section-title" style="margin-bottom:12px">PILOT <span>COMMAND PORTAL</span></h1>
+        <p class="section-lead" style="max-width:720px">
+          Authenticate with your PBKDF2-protected Pilot Account to inspect live Silver, Gold, station docking, and inventory across Android and Windows PC.
+        </p>
+      </div>
+    </section>
+
+    <section style="padding-top:48px">
+      <div class="container split-2">
+        <div class="panel-box">
+          <div class="eyebrow gold" style="margin-bottom:8px">PBKDF2-HMAC-SHA256 AUTH</div>
+          <h2 style="font-family:var(--font-display);font-size:1.3rem;margin:0 0 18px">PILOT SIGN-IN / REGISTRATION</h2>
+          <form id="pilot-auth-form">
+            <div class="form-group">
+              <label for="auth-mode">Action</label>
+              <select id="auth-mode">
+                <option value="login">Sign In to Existing Pilot Account</option>
+                <option value="register">Register New Pilot Account</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="auth-user">Pilot Username</label>
+              <input id="auth-user" type="text" required minlength="3" maxlength="32" placeholder="e.g. CommanderVance" autocomplete="username" />
+            </div>
+            <div class="form-group">
+              <label for="auth-pass">Password (min 8 characters)</label>
+              <input id="auth-pass" type="password" required minlength="8" placeholder="••••••••••••" autocomplete="current-password" />
+            </div>
+            <button type="submit" class="btn btn-gold" style="width:100%">Authenticate Pilot</button>
+          </form>
+          <div id="pilot-auth-msg" class="status-msg"></div>
+          <div id="pilot-profile-out"></div>
+        </div>
+
+        <div style="display:grid;gap:22px">
+          <div class="panel-box">
+            <div class="eyebrow" style="margin-bottom:8px">LIVE SERVER INFRASTRUCTURE</div>
+            <h2 style="font-family:var(--font-display);font-size:1.25rem;margin:0 0 16px">AETHER-01 SHARD STATUS</h2>
+            <div id="shard-health-box">Checking shard configuration…</div>
+          </div>
+
+          <div class="panel-box" style="border-color:rgba(240,185,86,0.3)">
+            <div class="eyebrow gold" style="margin-bottom:8px">SECURITY ARCHITECTURE</div>
+            <h3 style="font-family:var(--font-display);font-size:1.05rem;margin:0 0 10px">Zero Offline Exploits</h3>
+            <ul style="margin:0;padding-left:18px;color:var(--text-secondary);font-size:0.9rem;display:grid;gap:7px">
+              <li>100,000-iteration PBKDF2-SHA256 password hashing with per-account cryptographic salt.</li>
+              <li>Single-use UDP authentication tickets issued via <code>/api/world/ticket</code> before sector entry.</li>
+              <li>Real-time movement/damage anomaly scoring with automatic kick protection.</li>
+              <li>Double-entry SQLite economy ledger ensuring exact zero-sum currency conservation.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/data/catalog.js"></script>
+  <script src="assets/js/layout.js"></script>
+  <script src="assets/js/account.js"></script>
+</body>
+</html>
