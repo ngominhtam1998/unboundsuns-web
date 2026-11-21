@@ -39,10 +39,10 @@
   };
 
   const RULES = {
-    Blue:   { pvp: "Safe Zone (Zero PvP)", ores: "Ferrite Ore (T1)", bounty: "Mob 120S · Boss 900S" },
-    Yellow: { pvp: "Knockdown (8% Dur / 10% Ore)", ores: "Argent Ore (T2)", bounty: "Mob 260S · Boss 2,200S" },
-    Red:    { pvp: "Full-Loot PvP", ores: "Aurum Ore (T3)", bounty: "Mob 520S · Boss 4,800S" },
-    Black:  { pvp: "Unrestricted Full-Loot PvP", ores: "Plasmite (T4) · Voidite (T5)", bounty: "Mob 1,600S · Boss 12,000S" }
+    Blue:   { pvp: "Safe Zone (Zero PvP)", ores: "Ferrite Ore (T1)", bounty: "Mob 120 Silver · Boss 900 Silver", respawn: "Mob 45s (11s crowded) · Boss 3m" },
+    Yellow: { pvp: "Knockdown (8% Dur / 10% Ore)", ores: "Argent Ore (T2)", bounty: "Mob 260 Silver · Boss 2,200 Silver", respawn: "Mob 75s (19s crowded) · Boss 4m" },
+    Red:    { pvp: "Full-Loot PvP", ores: "Aurum Ore (T3)", bounty: "Mob 520 Silver · Boss 4,800 Silver", respawn: "Mob 100s (25s crowded) · Boss 5m" },
+    Black:  { pvp: "Unrestricted Full-Loot PvP", ores: "Plasmite (T4) · Voidite (T5)", bounty: "Mob 1,600 Silver · Boss 12,000 Silver", respawn: "Mob 120s (30s crowded) · Boss 7m" }
   };
 
   // Load real Unity Black Hole VFX sprites and pre-tint them onto offscreen canvases to match BuildPkBlackHoleVfx
@@ -581,7 +581,8 @@
           <div class="dossier-row"><span>PvP Ruleset</span><strong>${z.np ? "Free-For-All (No Party)" : rule.pvp}</strong></div>
           <div class="dossier-row"><span>Sector Ceiling</span><strong>100 Pilots / Zone</strong></div>
           <div class="dossier-row"><span>Primary Ore</span><strong>${rule.ores}</strong></div>
-          <div class="dossier-row"><span>Server PvE Payout</span><strong>${rule.bounty}</strong></div>
+          <div class="dossier-row"><span>PvE Silver Reward</span><strong>${rule.bounty}</strong></div>
+          <div class="dossier-row"><span>Respawn Timer</span><strong>${rule.respawn}</strong></div>
           <div class="dossier-row"><span>Route from Hearthwell</span><strong style="color:var(--gold-bright)">${hops === 0 ? "Origin Citadel (A1)" : `${hops} Warp Jumps`}</strong></div>
         </div>
         <div>
