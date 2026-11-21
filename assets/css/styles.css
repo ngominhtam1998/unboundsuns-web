@@ -1726,10 +1726,13 @@ section {
 }
 
 @media (max-width: 580px) {
+  .container { padding: 0 14px; }
+  .nav-inner { gap: 10px; }
   section { padding: 64px 0; }
   .brand-link { font-size: 0.9rem; gap: 9px; letter-spacing: 0.08em; }
   .brand-link img { width: 30px; height: 30px; }
   .brand-link small { display: none; }
+  .nav-actions { gap: 8px; }
   .nav-actions .btn-sm { padding: 8px 12px; font-size: 0.78rem; }
   .pillars-grid, .fleet-list, .banners-grid, .news-grid, .shop-bundles-grid, .gold-grid, .footer-grid {
     grid-template-columns: 1fr;
