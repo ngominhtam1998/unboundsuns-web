@@ -9,6 +9,9 @@
   const cat = window.UNBOUND_CATALOG;
   if (!cat) return;
 
+  const SILVER_ICON = `<img src="assets/img/icons/silver_coin.png" alt="Silver" title="Silver" class="silver-icon" />`;
+  const withSilverIcon = (text) => String(text).replace(/\b([\d,]+)\s*Silver\b/g, `<span class="silver-amt">$1${SILVER_ICON}</span>`);
+
   // ---------- 1. Fleet Hangar ----------
   const fleetList = document.getElementById("fleet-list");
   const hangarStage = document.getElementById("hangar-stage");
@@ -44,7 +47,7 @@
         <div class="craft-box">
           <div class="craft-box-title">Citadel Foundry Acquisition</div>
           <div class="craft-meta">
-            <div>Cost: <strong>${ship.craftCost.credits}</strong></div>
+            <div>Cost: <strong>${withSilverIcon(ship.craftCost.credits)}</strong></div>
             <div>Scrap: <strong>${ship.craftCost.scrap}</strong></div>
             <div style="grid-column:1/-1">Materials: <strong>${ship.craftCost.ores}</strong></div>
           </div>
@@ -96,7 +99,7 @@
         </p>
         <div class="frontier-grid-meta">
           <div class="frontier-stat"><span>Native Ores</span><strong>${f.ores.join(" · ")}</strong></div>
-          <div class="frontier-stat"><span>Bounty &amp; Salvage</span><strong>${f.bounty}</strong></div>
+          <div class="frontier-stat"><span>Bounty &amp; Salvage</span><strong>${withSilverIcon(f.bounty)}</strong></div>
           <div class="frontier-stat"><span>Zone Population Cap</span><strong>${f.cap}</strong></div>
           <div class="frontier-stat"><span>Active Sectors</span><strong>${f.count} Connected Nodes</strong></div>
         </div>
@@ -136,8 +139,8 @@
         </div>
         <p style="margin:0;color:var(--text-secondary);font-size:0.92rem;flex:1">${b.desc}</p>
         <div class="banner-specs">
-          <div><span>Single Pull (1×)</span><strong>${b.cost1x}</strong></div>
-          <div><span>Multi Pull (10×)</span><strong>${b.cost10x}</strong></div>
+          <div><span>Single Pull (1×)</span><strong>${withSilverIcon(b.cost1x)}</strong></div>
+          <div><span>Multi Pull (10×)</span><strong>${withSilverIcon(b.cost10x)}</strong></div>
           <div><span>Server Hard Pity</span><strong style="color:var(--cyan)">${b.pity}</strong></div>
         </div>
       </article>

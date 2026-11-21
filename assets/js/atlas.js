@@ -38,11 +38,14 @@
     PK:      { label: "3×3 Central PK Core", color: "#ff2e88" }
   };
 
+  const SILVER_IMG = `<img src="assets/img/icons/silver_coin.png" alt="Silver" title="Silver" class="silver-icon" />`;
+  const fmtSilver = (n) => `<span class="silver-amt">${n}${SILVER_IMG}</span>`;
+
   const RULES = {
-    Blue:   { pvp: "Safe Zone (Zero PvP)", ores: "Ferrite Ore (T1)", bounty: "Mob 120 Silver · Boss 900 Silver", respawn: "Mob 45s (11s crowded) · Boss 3m" },
-    Yellow: { pvp: "Knockdown (8% Dur / 10% Ore)", ores: "Argent Ore (T2)", bounty: "Mob 260 Silver · Boss 2,200 Silver", respawn: "Mob 75s (19s crowded) · Boss 4m" },
-    Red:    { pvp: "Full-Loot PvP", ores: "Aurum Ore (T3)", bounty: "Mob 520 Silver · Boss 4,800 Silver", respawn: "Mob 100s (25s crowded) · Boss 5m" },
-    Black:  { pvp: "Unrestricted Full-Loot PvP", ores: "Plasmite (T4) · Voidite (T5)", bounty: "Mob 1,600 Silver · Boss 12,000 Silver", respawn: "Mob 120s (30s crowded) · Boss 7m" }
+    Blue:   { pvp: "Safe Zone (Zero PvP)", ores: "Ferrite Ore (T1)", bounty: `Mob ${fmtSilver("120")} · Boss ${fmtSilver("900")}`, respawn: "Mob 45s (11s crowded) · Boss 3m" },
+    Yellow: { pvp: "Knockdown (8% Dur / 10% Ore)", ores: "Argent Ore (T2)", bounty: `Mob ${fmtSilver("260")} · Boss ${fmtSilver("2,200")}`, respawn: "Mob 75s (19s crowded) · Boss 4m" },
+    Red:    { pvp: "Full-Loot PvP", ores: "Aurum Ore (T3)", bounty: `Mob ${fmtSilver("520")} · Boss ${fmtSilver("4,800")}`, respawn: "Mob 100s (25s crowded) · Boss 5m" },
+    Black:  { pvp: "Unrestricted Full-Loot PvP", ores: "Plasmite (T4) · Voidite (T5)", bounty: `Mob ${fmtSilver("1,600")} · Boss ${fmtSilver("12,000")}`, respawn: "Mob 120s (30s crowded) · Boss 7m" }
   };
 
   // Load real Unity Black Hole VFX sprites and pre-tint them onto offscreen canvases to match BuildPkBlackHoleVfx
