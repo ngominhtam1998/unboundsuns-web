@@ -847,7 +847,7 @@ section {
   border-bottom: 1px solid rgba(116, 178, 255, 0.1);
   font-size: 0.88rem;
 }
-.dossier-row span { color: var(--text-muted); }
+.dossier-row > span { color: var(--text-muted); }
 .dossier-row strong { color: var(--text-primary); text-align: right; }
 .silver-amt,
 .alloy-amt,
@@ -1166,7 +1166,7 @@ section {
   border-radius: 8px;
   padding: 13px 15px;
 }
-.frontier-stat span {
+.frontier-stat > span {
   display: block;
   font-family: var(--font-tech);
   font-size: 0.74rem;

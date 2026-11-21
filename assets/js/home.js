@@ -104,7 +104,7 @@
         </p>
         <div class="frontier-grid-meta">
           <div class="frontier-stat"><span>Native Ores</span><strong>${f.ores.join(" · ")}</strong></div>
-          <div class="frontier-stat"><span>Bounty &amp; Salvage</span><strong>${withCurrencyIcons(f.bounty)}</strong></div>
+          <div class="frontier-stat"><span>Bounty &amp; Salvage</span><strong>${withCurrencyIcons(f.bounty).replace(/\s*\|\s*/g, "<br />")}</strong></div>
           <div class="frontier-stat"><span>Zone Population Cap</span><strong>${f.cap}</strong></div>
           <div class="frontier-stat"><span>Active Sectors</span><strong>${f.count} Connected Nodes</strong></div>
         </div>
