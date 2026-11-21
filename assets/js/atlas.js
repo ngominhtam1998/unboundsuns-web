@@ -1,11 +1,17 @@
 /**
  * Interactive 21×17 Galactic Sector Matrix Star Chart
- * Mirrors OpenWorldWorldMapRenderer.cs & map_manifest.json 1-to-1:
- * - Exact 21×17 square matrix (Cols A–U, Rows 1–17)
- * - Exact 3×3 Central PK Zone (J8–L10) with animated Abyssal Black-Hole Vortex & 12 port anchors
- * - Chamfered holo-tiles matching exact Unity RiskColor palette (Blue/Yellow/Red/Black)
- * - 16 Orbital Citadels (11 Blue + 5 Yellow) + 24 Tactical Landmarks (6 Portals, 6 Ore Belts, 6 Wrecks, 6 Boss Hazards)
- * - Live Shortest-Path Warp Route Plotter from Hearthwell (A1) to any selected sector
+ * Pixel-faithful port of Assets/Scripts/Gui/Combat/OpenWorldWorldMapRenderer.cs:
+ * - Exact 21×17 square matrix (Cols A–U, Rows 1–17) from map_manifest.json
+ * - Exact Unity chamfered holo-tiles & Color32 palette (Blue/Yellow/Red/Black)
+ * - Exact OpenWorldWorldMapStationGraphic procedural emblems:
+ *     * Station (16): 6-tower golden-ivory hexagonal Citadel fortress + cyan beacon core
+ *     * Portal  (6):  Cyan-violet wormhole ring + 4 cardinal white stabilizer pylons
+ *     * OreBelt (6):  Emerald octagon + 3 angled crystal shards
+ *     * Wreck   (6):  Amber diamond salvage frame + gold crossed hull ribs (X-frame)
+ *     * Hazard  (6):  Crimson warning triangle inside danger ring + hot-pink bio-hazard hex core
+ * - Exact 4-layer rotating Central PK Zone Black-Hole VFX using real Unity sprites:
+ *     cloud.png (crimson halo) + twister.png (amber accretion) + vortex.png (crimson inflow) + blackhole.png
+ * - Live Shortest-Path Warp Route Plotter from Hearthwell (A1)
  */
 (async function initStarAtlas() {
   const canvas = document.getElementById("atlas-canvas");
@@ -16,7 +22,6 @@
   const searchInput = document.getElementById("atlas-search-input");
   const filterBtns = document.querySelectorAll("[data-filter]");
 
-  // Exact Unity OpenWorldWorldMapRenderer.cs Color32 palette
   const PALETTE = {
     Blue:   { fill: "rgba(10,38,76,0.90)",  core: "rgba(16,58,112,0.86)", rim: "#34b2ff", top: "#8ce0ff", pip: "#38e8ff" },
     Yellow: { fill: "rgba(66,44,8,0.92)",   core: "rgba(96,64,12,0.88)",  rim: "#ffc026", top: "#ffe68a", pip: "#ffd24d" },
@@ -24,13 +29,13 @@
     Black:  { fill: "rgba(20,8,34,0.94)",   core: "rgba(38,14,62,0.90)",  rim: "#bc48ff", top: "#e696ff", pip: "#d75fff" }
   };
 
-  const LANDMARK_STYLE = {
-    Station: { label: "Orbital Citadel",   color: "#ffe280", glyph: "◆" },
-    Portal:  { label: "Warp Portal",       color: "#55f5ff", glyph: "◎" },
-    OreBelt: { label: "Rich Ore Belt",     color: "#2dffb4", glyph: "⬡" },
-    Wreck:   { label: "Ancient Shipwreck", color: "#ff9b2d", glyph: "✦" },
-    Hazard:  { label: "Abyssal Boss Zone", color: "#ff3769", glyph: "▲" },
-    PK:      { label: "3×3 Central PK Core", color: "#ff2e88", glyph: "PK" }
+  const LANDMARK_META = {
+    Station: { label: "Orbital Citadel",     color: "#ffe280" },
+    Portal:  { label: "Warp Portal",         color: "#55f5ff" },
+    OreBelt: { label: "Rich Ore Belt",       color: "#2dffb4" },
+    Wreck:   { label: "Ancient Shipwreck",   color: "#ff9b2d" },
+    Hazard:  { label: "Abyssal Boss Zone",   color: "#ff3769" },
+    PK:      { label: "3×3 Central PK Core", color: "#ff2e88" }
   };
 
   const RULES = {
@@ -38,6 +43,40 @@
     Yellow: { pvp: "Knockdown (8% Dur / 10% Ore)", ores: "Argent Ore (T2)", bounty: "Mob 260S · Boss 2,200S" },
     Red:    { pvp: "Full-Loot PvP", ores: "Aurum Ore (T3)", bounty: "Mob 520S · Boss 4,800S" },
     Black:  { pvp: "Unrestricted Full-Loot PvP", ores: "Plasmite (T4) · Voidite (T5)", bounty: "Mob 1,600S · Boss 12,000S" }
+  };
+
+  // Load real Unity Black Hole VFX sprites and pre-tint them onto offscreen canvases to match BuildPkBlackHoleVfx
+  function loadTintedSprite(src, tintColor) {
+    const entry = { img: null, ready: false };
+    const raw = new Image();
+    raw.onload = () => {
+      if (!tintColor) {
+        entry.img = raw;
+        entry.ready = true;
+        return;
+      }
+      const off = document.createElement("canvas");
+      off.width = raw.naturalWidth || 128;
+      off.height = raw.naturalHeight || 128;
+      const octx = off.getContext("2d");
+      octx.drawImage(raw, 0, 0);
+      octx.globalCompositeOperation = "multiply";
+      octx.fillStyle = tintColor;
+      octx.fillRect(0, 0, off.width, off.height);
+      octx.globalCompositeOperation = "destination-in";
+      octx.drawImage(raw, 0, 0);
+      entry.img = off;
+      entry.ready = true;
+    };
+    raw.src = src;
+    return entry;
+  }
+
+  const pkSprites = {
+    cloud:     loadTintedSprite("assets/img/map/cloud.png", "rgb(242, 41, 97)"),
+    twister:   loadTintedSprite("assets/img/map/twister.png", "rgb(255, 163, 46)"),
+    vortex:    loadTintedSprite("assets/img/map/vortex.png", "rgb(255, 71, 107)"),
+    blackhole: loadTintedSprite("assets/img/map/blackhole.png", null)
   };
 
   let atlas;
@@ -55,7 +94,7 @@
   const startId = atlas.start || "station_a";
 
   let activeFilter = "ALL";
-  let selectedId = startId;
+  let selectedId = "central_pk_zone";
   let hoveredId = null;
   let routePath = [startId];
   let routeEdgeSet = new Set();
@@ -66,16 +105,11 @@
   let dragging = false;
   let dragStart = { x: 0, y: 0 };
   let movedDistance = 0;
-  let width = 880, height = 560;
+  let width = 880, height = 590;
   let animTime = 0;
 
-  function colLabel(c) {
-    return String.fromCharCode(65 + c);
-  }
-
-  function edgeKey(a, b) {
-    return a < b ? `${a}|${b}` : `${b}|${a}`;
-  }
+  function colLabel(c) { return String.fromCharCode(65 + c); }
+  function edgeKey(a, b) { return a < b ? `${a}|${b}` : `${b}|${a}`; }
 
   function findShortestPath(fromId, toId) {
     if (fromId === toId) return [fromId];
@@ -102,8 +136,8 @@
   }
 
   function cellSize() {
-    const padX = 54, padY = 48;
-    return Math.min((width - padX) / COLS, (height - padY) / ROWS) * scale;
+    const padLeft = 36, padRight = 24, padTop = 36, padBottom = 22;
+    return Math.min((width - padLeft - padRight) / COLS, (height - padTop - padBottom) / ROWS) * scale;
   }
 
   function boardOrigin() {
@@ -111,19 +145,15 @@
     const bw = COLS * cs;
     const bh = ROWS * cs;
     return {
-      ox: (width - bw) / 2 + 12 + offsetX,
-      oy: (height - bh) / 2 + 12 + offsetY,
+      ox: (width - bw) / 2 + 10 + offsetX,
+      oy: (height - bh) / 2 + 8 + offsetY,
       cs
     };
   }
 
   function zoneScreenCenter(z) {
     const { ox, oy, cs } = boardOrigin();
-    return {
-      sx: ox + (z.c + 0.5) * cs,
-      sy: oy + (z.r + 0.5) * cs,
-      cs
-    };
+    return { sx: ox + (z.c + 0.5) * cs, sy: oy + (z.r + 0.5) * cs, cs };
   }
 
   function matchesFilter(z) {
@@ -131,6 +161,42 @@
     if (activeFilter === "STATION") return z.lm === "Station";
     if (activeFilter === "LANDMARK") return !!z.lm && z.lm !== "Station";
     return z.t === activeFilter;
+  }
+
+  // ---------- Low-level vector primitives mirroring LocalMapMesh ----------
+  function drawNgon(c, cx, cy, rx, ry, sides, rot, fill) {
+    c.beginPath();
+    for (let i = 0; i < sides; i++) {
+      const a = rot + (i / sides) * Math.PI * 2;
+      const px = cx + Math.cos(a) * rx;
+      const py = cy - Math.sin(a) * ry; // Unity Y-up -> Canvas Y-down
+      if (i === 0) c.moveTo(px, py); else c.lineTo(px, py);
+    }
+    c.closePath();
+    c.fillStyle = fill;
+    c.fill();
+  }
+
+  function drawRing(c, cx, cy, rOuter, rInner, sides, rot, fill) {
+    c.save();
+    c.beginPath();
+    for (let i = 0; i < sides; i++) {
+      const a = rot + (i / sides) * Math.PI * 2;
+      const px = cx + Math.cos(a) * rOuter;
+      const py = cy - Math.sin(a) * rOuter;
+      if (i === 0) c.moveTo(px, py); else c.lineTo(px, py);
+    }
+    c.closePath();
+    for (let i = sides - 1; i >= 0; i--) {
+      const a = rot + (i / sides) * Math.PI * 2;
+      const px = cx + Math.cos(a) * rInner;
+      const py = cy - Math.sin(a) * rInner;
+      if (i === sides - 1) c.moveTo(px, py); else c.lineTo(px, py);
+    }
+    c.closePath();
+    c.fillStyle = fill;
+    c.fill("evenodd");
+    c.restore();
   }
 
   function drawChamferedRect(cx, cy, hx, hy, ch) {
@@ -144,6 +210,100 @@
     ctx.lineTo(cx - hx, cy + hy - ch);
     ctx.lineTo(cx - hx, cy - hy + ch);
     ctx.closePath();
+  }
+
+  // ---------- Exact Ports of OpenWorldWorldMapStationGraphic Emblems ----------
+  function drawStationEmblem(c, cx, cy, r) {
+    drawNgon(c, cx, cy, r * 1.55, r * 1.55, 16, 0, "rgba(255,210,75,0.16)");
+    drawNgon(c, cx, cy, r * 1.25, r * 1.25, 16, 0, "rgba(90,235,255,0.22)");
+    drawNgon(c, cx + 1.2, cy + 1.2, r * 1.05, r * 1.05, 6, 0, "rgba(0,0,0,0.78)");
+    drawNgon(c, cx, cy, r, r, 6, 0, "#0a101c");
+    drawRing(c, cx, cy, r, r * 0.78, 6, 0, "#ffe069");
+    drawNgon(c, cx, cy, r * 0.62, r * 0.62, 6, 0, "#1a2436");
+    for (let i = 0; i < 6; i++) {
+      const ang = (i * Math.PI) / 3;
+      const bx = cx + Math.cos(ang) * (r * 0.86);
+      const by = cy - Math.sin(ang) * (r * 0.86);
+      drawNgon(c, bx, by, r * 0.25, r * 0.25, 6, 0, "#ffe069");
+      drawNgon(c, bx, by, r * 0.13, r * 0.13, 6, 0, "#fff8d7");
+    }
+    drawNgon(c, cx, cy, r * 0.36, r * 0.36, 6, 0, "#fff8d7");
+    drawNgon(c, cx, cy, r * 0.20, r * 0.20, 6, 0, "#5af0ff");
+  }
+
+  function drawPortalEmblem(c, cx, cy, r) {
+    drawNgon(c, cx, cy, r * 1.65, r * 1.65, 20, 0, "rgba(145,70,255,0.20)");
+    drawNgon(c, cx, cy, r * 1.30, r * 1.30, 20, 0, "rgba(60,235,255,0.25)");
+    drawNgon(c, cx, cy, r * 0.96, r * 0.96, 24, 0, "rgba(8,12,28,0.98)");
+    drawRing(c, cx, cy, r * 1.02, r * 0.80, 24, 0, "#4bf5ff");
+    drawRing(c, cx, cy, r * 0.72, r * 0.50, 20, 0, "#c35fff");
+    c.strokeStyle = "#ebfcff";
+    c.lineWidth = Math.max(1.4, r * 0.22);
+    for (let i = 0; i < 4; i++) {
+      const ang = i * (Math.PI * 0.5);
+      c.beginPath();
+      c.moveTo(cx + Math.cos(ang) * r * 0.56, cy - Math.sin(ang) * r * 0.56);
+      c.lineTo(cx + Math.cos(ang) * r * 1.18, cy - Math.sin(ang) * r * 1.18);
+      c.stroke();
+    }
+    drawNgon(c, cx, cy, r * 0.34, r * 0.34, 16, 0, "#ebfcff");
+    drawNgon(c, cx, cy, r * 0.18, r * 0.18, 12, 0, "#4bf5ff");
+  }
+
+  function drawOreBeltEmblem(c, cx, cy, r) {
+    drawNgon(c, cx, cy, r * 1.55, r * 1.55, 16, 0, "rgba(30,245,165,0.18)");
+    drawNgon(c, cx, cy, r * 1.22, r * 1.22, 16, 0, "rgba(80,255,200,0.22)");
+    drawNgon(c, cx, cy, r * 0.95, r * 0.95, 8, 0.3927, "rgba(6,22,18,0.96)");
+    drawRing(c, cx, cy, r * 0.98, r * 0.80, 8, 0.3927, "#2afcac");
+    drawNgon(c, cx - r * 0.32, cy + r * 0.06, r * 0.24, r * 0.48, 4, 0.35, "#2afcac");
+    drawNgon(c, cx + r * 0.32, cy + r * 0.06, r * 0.24, r * 0.48, 4, -0.35, "#2afcac");
+    drawNgon(c, cx, cy - r * 0.06, r * 0.32, r * 0.68, 4, 0, "#b9ffe6");
+    drawNgon(c, cx, cy - r * 0.06, r * 0.16, r * 0.42, 4, 0, "#2afcac");
+  }
+
+  function drawWreckEmblem(c, cx, cy, r) {
+    drawNgon(c, cx, cy, r * 1.55, r * 1.55, 16, 0, "rgba(255,135,28,0.18)");
+    drawNgon(c, cx, cy, r * 1.22, r * 1.22, 16, 0, "rgba(255,185,65,0.24)");
+    drawNgon(c, cx, cy, r * 0.96, r * 0.96, 4, 0, "rgba(24,12,6,0.96)");
+    drawRing(c, cx, cy, r * 1.02, r * 0.80, 4, 0, "#ff9424");
+    const d = r * 0.52;
+    c.strokeStyle = "#ffe487";
+    c.lineWidth = Math.max(1.5, r * 0.22);
+    c.beginPath();
+    c.moveTo(cx - d, cy - d); c.lineTo(cx + d, cy + d);
+    c.moveTo(cx - d, cy + d); c.lineTo(cx + d, cy - d);
+    c.stroke();
+    drawNgon(c, cx, cy, r * 0.28, r * 0.28, 4, 0, "#ff9424");
+    drawNgon(c, cx, cy, r * 0.14, r * 0.14, 4, 0, "#fffadc");
+  }
+
+  function drawHazardEmblem(c, cx, cy, r) {
+    drawNgon(c, cx, cy, r * 1.65, r * 1.65, 16, 0, "rgba(255,32,85,0.20)");
+    drawNgon(c, cx, cy, r * 1.28, r * 1.28, 16, 0, "rgba(255,75,125,0.26)");
+    drawRing(c, cx, cy, r * 1.04, r * 0.86, 16, 0, "rgba(255,48,92,0.75)");
+    drawNgon(c, cx, cy + r * 0.06, r * 0.92, r * 0.92, 3, Math.PI * 0.5, "rgba(26,6,14,0.97)");
+    drawRing(c, cx, cy + r * 0.06, r * 0.95, r * 0.72, 3, Math.PI * 0.5, "#ff305c");
+    drawNgon(c, cx, cy + r * 0.04, r * 0.34, r * 0.34, 6, 0, "#ffafc8");
+    drawNgon(c, cx, cy + r * 0.04, r * 0.16, r * 0.16, 6, 0, "#ff305c");
+  }
+
+  function drawLandmarkEmblem(c, kind, cx, cy, r) {
+    if (kind === "Station") drawStationEmblem(c, cx, cy, r);
+    else if (kind === "Portal") drawPortalEmblem(c, cx, cy, r);
+    else if (kind === "OreBelt") drawOreBeltEmblem(c, cx, cy, r);
+    else if (kind === "Wreck") drawWreckEmblem(c, cx, cy, r);
+    else if (kind === "Hazard") drawHazardEmblem(c, cx, cy, r);
+  }
+
+  // Render crisp matching miniature emblems inside the legend bar below the map
+  function renderLegendCanvases() {
+    document.querySelectorAll("[data-legend-kind]").forEach((el) => {
+      const kind = el.dataset.legendKind;
+      const lctx = el.getContext("2d");
+      if (!lctx) return;
+      lctx.clearRect(0, 0, el.width, el.height);
+      drawLandmarkEmblem(lctx, kind, el.width / 2, el.height / 2, el.width * 0.34);
+    });
   }
 
   function resize() {
@@ -163,8 +323,8 @@
     const bw = COLS * cs;
     const bh = ROWS * cs;
 
-    // 1. Subtle matrix grid & Column (A–U) / Row (1–17) tactical headers
-    ctx.strokeStyle = "rgba(56, 232, 255, 0.06)";
+    // 1. Subtle matrix grid & Column (A–U) / Row (1–17) headers
+    ctx.strokeStyle = "rgba(56, 232, 255, 0.055)";
     ctx.lineWidth = 1;
     for (let c = 0; c <= COLS; c++) {
       const x = ox + c * cs;
@@ -175,20 +335,20 @@
       ctx.beginPath(); ctx.moveTo(ox, y); ctx.lineTo(ox + bw, y); ctx.stroke();
     }
 
-    const hdrSize = Math.max(9, Math.min(12, cs * 0.42));
+    const hdrSize = Math.max(9, Math.min(12, cs * 0.40));
     ctx.font = `700 ${hdrSize}px Rajdhani, sans-serif`;
-    ctx.fillStyle = "rgba(116, 198, 255, 0.65)";
+    ctx.fillStyle = "rgba(116, 198, 255, 0.72)";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
     for (let c = 0; c < COLS; c++) {
-      ctx.fillText(colLabel(c), ox + (c + 0.5) * cs, oy - Math.max(10, cs * 0.45));
+      ctx.fillText(colLabel(c), ox + (c + 0.5) * cs, oy - Math.max(11, cs * 0.44));
     }
     ctx.textAlign = "right";
     for (let r = 0; r < ROWS; r++) {
-      ctx.fillText(String(r + 1), ox - Math.max(7, cs * 0.3), oy + (r + 0.5) * cs);
+      ctx.fillText(String(r + 1), ox - Math.max(8, cs * 0.30), oy + (r + 0.5) * cs);
     }
 
-    // 2. Draw 656 real portal routes (connecting cleanly to 3×3 Central PK port edges)
+    // 2. Draw 656 warp lanes
     for (let i = 0; i < atlas.edges.length; i++) {
       const [aId, bId] = atlas.edges[i];
       const a = zoneMap.get(aId);
@@ -217,7 +377,7 @@
       ctx.stroke();
     }
 
-    // 3. Draw 348 standard chamfered holo-tiles + 1 colossal 3×3 Central PK Zone
+    // 3. Draw 348 chamfered holo-tiles + exact Unity procedural landmark emblems
     let pkZone = null;
     for (let i = 0; i < atlas.zones.length; i++) {
       const z = atlas.zones[i];
@@ -237,22 +397,19 @@
       ctx.save();
       ctx.globalAlpha = match || onPath || isSel ? 1 : 0.18;
 
-      // Drop shadow
+      // Drop shadow & chamfered body
       drawChamferedRect(sx + 1.2, sy + 1.5, half, half, ch);
       ctx.fillStyle = "rgba(0,0,0,0.65)";
       ctx.fill();
 
-      // Main tile body
       drawChamferedRect(sx, sy, half, half, ch);
       ctx.fillStyle = pal.fill;
       ctx.fill();
 
-      // Recessed core pad
       drawChamferedRect(sx, sy, half * 0.72, half * 0.72, ch * 0.72);
       ctx.fillStyle = pal.core;
       ctx.fill();
 
-      // Outer neon rim
       drawChamferedRect(sx, sy, half, half, ch);
       ctx.lineWidth = isSel ? 2.4 : (onPath ? 1.8 : 1.15);
       ctx.strokeStyle = isSel ? "#ffe194" : (onPath ? "#38e8ff" : pal.rim);
@@ -266,41 +423,45 @@
       ctx.strokeStyle = pal.top;
       ctx.stroke();
 
-      // Landmark inner accent frame & glyph OR center pip
-      if (z.lm && LANDMARK_STYLE[z.lm]) {
-        const lm = LANDMARK_STYLE[z.lm];
-        drawChamferedRect(sx, sy, half * 0.8, half * 0.8, ch * 0.8);
+      if (z.lm && LANDMARK_META[z.lm]) {
+        // Accent inner frame + exact OpenWorldWorldMapStationGraphic procedural emblem!
+        drawChamferedRect(sx, sy, half * 0.84, half * 0.84, ch * 0.82);
         ctx.lineWidth = 1.2;
-        ctx.strokeStyle = lm.color;
+        ctx.strokeStyle = LANDMARK_META[z.lm].color;
         ctx.stroke();
-        if (cs >= 16) {
-          ctx.font = `700 ${Math.max(8, cs * 0.36)}px Rajdhani, sans-serif`;
-          ctx.fillStyle = lm.color;
-          ctx.textAlign = "center";
-          ctx.textBaseline = "middle";
-          ctx.fillText(lm.glyph, sx, sy + 0.5);
-        }
+        drawLandmarkEmblem(ctx, z.lm, sx, sy, cs * 0.34);
       } else {
+        // Crisp glowing center node pip (matching OpenWorldWorldMapNodeGraphic)
         ctx.beginPath();
-        ctx.arc(sx, sy, Math.max(1.6, cs * 0.085), 0, Math.PI * 2);
+        ctx.arc(sx, sy, Math.max(2.0, cs * 0.095), 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(6,10,18,0.9)";
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(sx, sy, Math.max(1.4, cs * 0.072), 0, Math.PI * 2);
         ctx.fillStyle = pal.pip;
         ctx.fill();
+        if (z.t === "Black") {
+          ctx.beginPath();
+          ctx.arc(sx, sy, Math.max(0.9, cs * 0.036), 0, Math.PI * 2);
+          ctx.fillStyle = "#ff415f";
+          ctx.fill();
+        }
       }
 
       if (isHov && !isSel) {
         drawChamferedRect(sx, sy, half + 2.5, half + 2.5, ch + 1);
-        ctx.lineWidth = 1.5;
+        ctx.lineWidth = 1.6;
         ctx.strokeStyle = "#ffffff";
         ctx.stroke();
       }
-
       ctx.restore();
     }
 
-    // 4. Draw Iconic 3×3 CENTRAL PK ZONE (Cols J–L, Rows 8–10)
+    // 4. Draw 3×3 CENTRAL PK ZONE with exact 4-layer rotating Unity Black-Hole VFX!
     if (pkZone) {
       const { sx, sy } = zoneScreenCenter(pkZone);
       const half = cs * 1.46;
+      const box = half * 2;
       const ch = half * 0.14;
       const isSel = pkZone.id === selectedId;
       const match = matchesFilter(pkZone);
@@ -308,51 +469,38 @@
       ctx.save();
       ctx.globalAlpha = match || isSel ? 1 : 0.25;
 
-      // Outer crimson-violet abyssal aura
-      const aura = ctx.createRadialGradient(sx, sy, half * 0.15, sx, sy, half * 1.18);
-      aura.addColorStop(0, "rgba(255, 42, 118, 0.55)");
-      aura.addColorStop(0.55, "rgba(130, 26, 210, 0.32)");
-      aura.addColorStop(1, "rgba(18, 5, 32, 0)");
-      ctx.fillStyle = aura;
-      ctx.beginPath();
-      ctx.arc(sx, sy, half * 1.18, 0, Math.PI * 2);
-      ctx.fill();
-
-      // 3×3 Chamfered fortress frame
+      // 3×3 Chamfered dark fortress frame
       drawChamferedRect(sx, sy, half, half, ch);
-      ctx.fillStyle = "rgba(22, 6, 36, 0.96)";
+      ctx.fillStyle = "rgba(18, 5, 28, 0.96)";
       ctx.fill();
       ctx.lineWidth = isSel ? 3 : 2.2;
       ctx.strokeStyle = isSel ? "#ffe194" : "#ff367e";
       ctx.stroke();
 
-      // Animated vortex rings inside 3×3 core
+      // Clip Black-Hole VFX cleanly inside the 3×3 tile
       ctx.save();
-      ctx.translate(sx, sy);
-      ctx.rotate(animTime * 0.65);
-      ctx.strokeStyle = "rgba(195, 86, 255, 0.55)";
-      ctx.lineWidth = 1.5;
-      ctx.setLineDash([8, 6]);
-      ctx.beginPath();
-      ctx.arc(0, 0, half * 0.62, 0, Math.PI * 2);
-      ctx.stroke();
-      ctx.rotate(-animTime * 1.3);
-      ctx.strokeStyle = "rgba(255, 62, 110, 0.72)";
-      ctx.beginPath();
-      ctx.arc(0, 0, half * 0.38, 0, Math.PI * 2);
-      ctx.stroke();
+      drawChamferedRect(sx, sy, half - 2, half - 2, ch);
+      ctx.clip();
+
+      const drawRotLayer = (sprite, sizeRatio, angle, alpha) => {
+        if (!sprite.ready || !sprite.img) return;
+        const sz = box * sizeRatio;
+        ctx.save();
+        ctx.translate(sx, sy);
+        ctx.rotate(angle);
+        ctx.globalAlpha = alpha;
+        ctx.drawImage(sprite.img, -sz / 2, -sz / 2, sz, sz);
+        ctx.restore();
+      };
+
+      const pulse = 0.44 + 0.14 * Math.sin(animTime * 2.1);
+      drawRotLayer(pkSprites.cloud, 0.96, animTime * 0.12, pulse);
+      drawRotLayer(pkSprites.twister, 0.78, animTime * 0.65, 0.90);
+      drawRotLayer(pkSprites.vortex, 0.64, -animTime * 1.05, 0.88);
+      drawRotLayer(pkSprites.blackhole, 0.52, animTime * 0.22, 1.0);
       ctx.restore();
 
-      // Dark event horizon center
-      ctx.beginPath();
-      ctx.arc(sx, sy, half * 0.24, 0, Math.PI * 2);
-      ctx.fillStyle = "#06020d";
-      ctx.fill();
-      ctx.lineWidth = 1.6;
-      ctx.strokeStyle = "#ff4e88";
-      ctx.stroke();
-
-      // 12 Port Anchor pips (3 per side matching CentralPkPortAnchors)
+      // 12 Port Anchor notches (3 per side)
       ctx.fillStyle = "#ff91b8";
       for (let k = -1; k <= 1; k++) {
         const off = k * cs;
@@ -362,22 +510,25 @@
         ctx.fillRect(sx + half - 2, sy + off - 2, 4, 4);
       }
 
-      // Label
-      ctx.font = `800 ${Math.max(9, cs * 0.42)}px Orbitron, sans-serif`;
+      // Crisp PK badge & bottom caption
+      ctx.font = `800 ${Math.max(10, cs * 0.42)}px Orbitron, sans-serif`;
       ctx.fillStyle = "#ffffff";
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
+      ctx.shadowColor = "rgba(0,0,0,0.95)";
+      ctx.shadowBlur = 8;
       ctx.fillText("PK", sx, sy);
 
       if (cs >= 20) {
-        ctx.font = `700 ${Math.max(8, cs * 0.28)}px Rajdhani, sans-serif`;
-        ctx.fillStyle = "#ff9fc4";
-        ctx.fillText("CENTRAL PK ZONE", sx, sy + half * 0.78);
+        ctx.font = `700 ${Math.max(8, cs * 0.27)}px Rajdhani, sans-serif`;
+        ctx.fillStyle = "#ffc2dc";
+        ctx.fillText("CENTRAL PK ZONE", sx, sy + half * 0.80);
       }
+      ctx.shadowBlur = 0;
       ctx.restore();
     }
 
-    // 5. Floating labels for Hearthwell (A1), Selected & Hovered sectors
+    // 5. Smart-clamped floating labels (NEVER overlap A–U headers or canvas edges!)
     const labelTargets = [zoneMap.get(startId), zoneMap.get(selectedId), zoneMap.get(hoveredId)].filter(Boolean);
     const drawnLabels = new Set();
     for (const z of labelTargets) {
@@ -387,16 +538,19 @@
       const tag = `${z.name.toUpperCase()} (${z.g})`;
       ctx.font = "700 11px Rajdhani, sans-serif";
       const tw = ctx.measureText(tag).width + 12;
-      const ty = sy - cs * 0.65;
-      ctx.fillStyle = "rgba(5, 10, 22, 0.9)";
+      const lx = Math.max(tw / 2 + 8, Math.min(width - tw / 2 - 8, sx));
+      const placeBelow = z.r <= 1;
+      const ty = placeBelow ? sy + cs * 0.68 : sy - cs * 0.68;
+
+      ctx.fillStyle = "rgba(5, 10, 22, 0.92)";
       ctx.strokeStyle = z.id === selectedId ? "#ffe194" : "#38e8ff";
       ctx.lineWidth = 1;
-      ctx.fillRect(sx - tw / 2, ty - 9, tw, 18);
-      ctx.strokeRect(sx - tw / 2, ty - 9, tw, 18);
+      ctx.fillRect(lx - tw / 2, ty - 9, tw, 18);
+      ctx.strokeRect(lx - tw / 2, ty - 9, tw, 18);
       ctx.fillStyle = z.id === selectedId ? "#ffe194" : "#eef5ff";
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
-      ctx.fillText(tag, sx, ty);
+      ctx.fillText(tag, lx, ty);
     }
   }
 
@@ -404,7 +558,7 @@
     if (!dossierEl || !z) return;
     const pal = PALETTE[z.t] || PALETTE.Blue;
     const rule = RULES[z.t] || RULES.Blue;
-    const lm = z.lm && LANDMARK_STYLE[z.lm] ? LANDMARK_STYLE[z.lm] : null;
+    const lm = z.lm && LANDMARK_META[z.lm] ? LANDMARK_META[z.lm] : null;
     const hops = Math.max(0, routePath.length - 1);
 
     const gatesHtml = (z.ex || []).map((targetId) => {
@@ -438,7 +592,7 @@
         </div>
       </div>
       <div style="margin-top:16px;padding-top:12px;border-top:1px solid rgba(116,178,255,0.12);font-size:0.8rem;color:var(--text-muted)">
-        1-to-1 sync with <code>map_manifest.json</code> (21×17 matrix · 349 sectors · 16 Citadels · 24 Landmarks · 3×3 PK Core).
+        1-to-1 sync with <code>map_manifest.json</code> &amp; <code>OpenWorldWorldMapRenderer.cs</code> emblems.
       </div>
     `;
 
@@ -551,10 +705,9 @@
     });
   }
 
-  // Gentle 20fps pulse for the 3×3 Central PK Black-Hole Vortex when visible
   let lastTick = 0;
   function animateVortex(ts) {
-    if (!document.hidden && ts - lastTick > 60) {
+    if (!document.hidden && ts - lastTick > 50) {
       animTime = ts * 0.001;
       lastTick = ts;
       draw();
@@ -563,6 +716,7 @@
   }
 
   window.addEventListener("resize", resize);
+  renderLegendCanvases();
   resize();
   focusSector("central_pk_zone");
   requestAnimationFrame(animateVortex);
