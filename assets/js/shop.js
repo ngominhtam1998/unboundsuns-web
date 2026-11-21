@@ -70,6 +70,17 @@
   }
   updatePilotBanner();
 
+  const SILVER_ICON = `<img src="assets/img/icons/silver_coin.png?v=20261121f" alt="Silver" title="Silver" class="silver-icon" />`;
+  const GOLD_ICON = `<img src="assets/img/icons/gold_coin.png?v=20261121f" alt="Gold" title="Gold" class="gold-icon" />`;
+  const ALLOY_ICON = `<img src="assets/img/icons/nano_alloy.png?v=20261121f" alt="Nano-Alloy" title="Nano-Alloy" class="alloy-icon" />`;
+
+  function formatPerkCurrency(str) {
+    return String(str)
+      .replace(/\b([\d,]+)\s*Gold\b/g, `<span class="gold-amt">$1${GOLD_ICON}</span>`)
+      .replace(/\b([\d,]+)\s*Silver\b/g, `<span class="silver-amt">$1${SILVER_ICON}</span>`)
+      .replace(/\b([\d,]+)\s*Nano-Alloy\b/g, `<span class="alloy-amt">$1${ALLOY_ICON}</span>`);
+  }
+
   function renderBundles() {
     if (!bundlesEl) return;
     bundlesEl.innerHTML = cat.shopBundles.map((b) => {
@@ -82,7 +93,7 @@
           </div>
           <h3>${b.title}</h3>
           <ul class="shop-perks">
-            ${b.perks.map((p) => `<li>${p}</li>`).join("")}
+            ${b.perks.map((p) => `<li>${formatPerkCurrency(p)}</li>`).join("")}
           </ul>
           <div class="shop-footer">
             <div>
@@ -114,7 +125,7 @@
       return `
         <article class="shop-card ${g.popular ? "featured" : ""}">
           <span class="shop-badge">${g.badge}</span>
-          <div class="gold-amount">${totalGold.toLocaleString()} <span style="font-size:1rem;color:var(--gold)">GOLD</span></div>
+          <div class="gold-amount">${totalGold.toLocaleString()} <img src="assets/img/icons/gold_coin.png?v=20261121f" alt="Gold" title="Gold" class="gold-icon" style="width:24px;height:24px;vertical-align:-4px" /> <span style="font-size:1rem;color:var(--gold)">GOLD</span></div>
           <div class="gold-bonus-line">${bonusLabel}</div>
           <div class="gold-seals-line">Base ${g.baseGold.toLocaleString()} Gold · Includes <strong style="color:#fff">+${g.seals.toLocaleString()} Sovereign Seals (◊)</strong></div>
           <div style="font-family:var(--font-display);font-size:0.95rem;color:var(--text-secondary);margin-bottom:16px">${g.title}</div>

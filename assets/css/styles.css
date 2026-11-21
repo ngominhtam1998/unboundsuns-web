@@ -849,21 +849,29 @@ section {
 }
 .dossier-row span { color: var(--text-muted); }
 .dossier-row strong { color: var(--text-primary); text-align: right; }
-.silver-amt {
+.silver-amt,
+.alloy-amt,
+.gold-amt {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  color: #e4f0ff;
   white-space: nowrap;
 }
-.silver-icon {
+.silver-amt { color: #e4f0ff; }
+.alloy-amt { color: #7ce8ff; }
+.gold-amt { color: #ffd966; }
+.silver-icon,
+.alloy-icon,
+.gold-icon {
   display: inline-block;
-  width: 15px;
-  height: 15px;
+  width: 16px;
+  height: 16px;
   object-fit: contain;
   vertical-align: -2px;
-  filter: drop-shadow(0 0 4px rgba(190, 224, 255, 0.55));
 }
+.silver-icon { filter: drop-shadow(0 0 4px rgba(190, 224, 255, 0.50)); }
+.alloy-icon { filter: drop-shadow(0 0 4px rgba(56, 189, 248, 0.55)); }
+.gold-icon { filter: drop-shadow(0 0 4px rgba(250, 204, 21, 0.50)); }
 .jump-gates {
   display: flex;
   flex-wrap: wrap;

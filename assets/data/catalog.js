@@ -19,7 +19,7 @@ window.UNBOUND_CATALOG = {
       img: "assets/img/ships/f1s1.png",
       tagline: "Reliable orbital workhorse designed for Blue-zone mining, early pirate contracts, and safe station hauling between Hearthwell and outer Citadels.",
       stats: { armor: 38, shield: 35, speed: 68, firepower: 38, cargo: 44 },
-      craftCost: { credits: "2,400 Silver", scrap: "10 Alloy Scrap", ores: "No refined ores required" },
+      craftCost: { credits: "2,400 Silver", scrap: "10 Nano-Alloy", ores: "No refined ores required" },
       zoneRec: "Blue Safe Sectors (108)"
     },
     {
@@ -32,7 +32,7 @@ window.UNBOUND_CATALOG = {
       img: "assets/img/ships/poc_scout_901.png",
       tagline: "High-thrust interceptor engineered to scout contested Yellow jump gates, outrun hostile gank squads, and claim derelict containers first.",
       stats: { armor: 44, shield: 48, speed: 95, firepower: 50, cargo: 38 },
-      craftCost: { credits: "3,600 Silver", scrap: "18 Alloy Scrap", ores: "30 Ferrite · 16 Argent" },
+      craftCost: { credits: "3,600 Silver", scrap: "18 Nano-Alloy", ores: "30 Ferrite · 16 Argent" },
       zoneRec: "Yellow Contested Sectors (112)"
     },
     {
@@ -45,7 +45,7 @@ window.UNBOUND_CATALOG = {
       img: "assets/img/ships/fns1.png",
       tagline: "Heavy-turret gunship with triple plasma drives and balanced shielding. Core frontline vessel for Red Lethal raids and small-gang PvP.",
       stats: { armor: 64, shield: 66, speed: 78, firepower: 74, cargo: 56 },
-      craftCost: { credits: "8,500 Silver", scrap: "40 Alloy Scrap", ores: "48 Argent · 28 Aurum" },
+      craftCost: { credits: "8,500 Silver", scrap: "40 Nano-Alloy", ores: "48 Argent · 28 Aurum" },
       zoneRec: "Red Lethal Frontier (76)"
     },
     {
@@ -58,7 +58,7 @@ window.UNBOUND_CATALOG = {
       img: "assets/img/ships/fns6.png",
       tagline: "Gilded white-titanium cruiser built around an axial plasma lance core. Anchors guild battle lines across Black Void anomalies and World Boss hunts.",
       stats: { armor: 84, shield: 86, speed: 56, firepower: 88, cargo: 78 },
-      craftCost: { credits: "22,000 Silver", scrap: "85 Alloy Scrap", ores: "75 Aurum · 40 Plasmite (or 45 Armada Crests)" },
+      craftCost: { credits: "22,000 Silver", scrap: "85 Nano-Alloy", ores: "75 Aurum · 40 Plasmite (or 45 Armada Crests)" },
       zoneRec: "Black Abyssal Void (53)"
     },
     {
@@ -71,7 +71,7 @@ window.UNBOUND_CATALOG = {
       img: "assets/img/ships/fns7.png",
       tagline: "Six-thruster obsidian-and-crimson apex hull forged from pure Voidite. Commands the 3×3 Central PK Zone, Abyssal World Bosses, and guild warfare.",
       stats: { armor: 98, shield: 96, speed: 44, firepower: 99, cargo: 96 },
-      craftCost: { credits: "55,000 Silver", scrap: "160 Alloy Scrap", ores: "100 Plasmite · 50 Voidite (or 90 Armada Crests)" },
+      craftCost: { credits: "55,000 Silver", scrap: "160 Nano-Alloy", ores: "100 Plasmite · 50 Voidite (or 90 Armada Crests)" },
       zoneRec: "3×3 Central PK Core (J8–L10)"
     }
   ],
@@ -86,7 +86,7 @@ window.UNBOUND_CATALOG = {
       risk: "ZERO PVP LOSS · 11 CITADELS",
       pvpRule: "Fully protected Concord space. Hostile player weapons are disabled; dock at 11 Blue Citadels for Foundry crafting, OrderBook trading, and Personal Homestead access.",
       ores: ["Ferrite Ore (T1)"],
-      bounty: "Mob: 120 Silver / 2 Scrap · Boss: 900 Silver / 15 Scrap",
+      bounty: "Mob: 120 Silver · 2 Nano-Alloy | Boss: 900 Silver · 15 Nano-Alloy",
       cap: "100 Pilots / Sector",
       img: "assets/img/scenery/blue_ringed_gas_giant.png",
       desc: "The outer ring of the 21×17 galactic matrix anchored by Hearthwell (A1). Safe for learning Newtonian drift flight, refining T1–T2 Titanium modules, and staging guild logistics."
@@ -99,7 +99,7 @@ window.UNBOUND_CATALOG = {
       risk: "KNOCKDOWN PVP · 5 CITADELS",
       pvpRule: "Non-lethal knockdown PvP: defeated ships take 8% gear durability loss and scatter 10% of carried ore, while keeping fitted modules and hull intact.",
       ores: ["Argent Ore (T2)", "Rich Yellow Ore Belts"],
-      bounty: "Mob: 260 Silver / 4 Scrap · Boss: 2,200 Silver / 28 Scrap",
+      bounty: "Mob: 260 Silver · 4 Nano-Alloy | Boss: 2,200 Silver · 28 Nano-Alloy",
       cap: "100 Pilots / Sector",
       img: "assets/img/scenery/yellow_cracked_mining_moon.png",
       desc: "Contested mining moons and derelict refineries ringed around the middle frontier. Features 5 forward Outpost Citadels and high-yield Argent asteroid belts."
@@ -112,7 +112,7 @@ window.UNBOUND_CATALOG = {
       risk: "FULL-LOOT PVP · NO CITADELS",
       pvpRule: "Lethal open PvP with zero safe docking stations. Destroyed hulls drop salvageable cargo and equipment into persistent wreckage fields.",
       ores: ["Aurum Ore (T3)", "High-Risk Shipwrecks"],
-      bounty: "Mob: 520 Silver / 7 Scrap · Boss: 4,800 Silver / 50 Scrap",
+      bounty: "Mob: 520 Silver · 7 Nano-Alloy | Boss: 4,800 Silver · 50 Nano-Alloy",
       cap: "100 Pilots / Sector",
       img: "assets/img/scenery/red_shattered_dreadnought.png",
       desc: "Shattered dreadnought graveyards and magma worlds guarding the inner perimeter. Former stations here have been converted into Warp Portals, Rich Ore Belts, Shipwrecks, and Boss Hazards."
@@ -125,7 +125,7 @@ window.UNBOUND_CATALOG = {
       risk: "UNRESTRICTED FULL-LOOT · 3×3 PK CORE",
       pvpRule: "Total lawless space surrounding the 3×3 Central PK Zone (J8–L10, No-Party Free-For-All). Maximum Silver payouts, Voidite World Bosses, and guild warfare.",
       ores: ["Plasmite Ore (T4)", "Voidite Ore (T5 Boss Drop)"],
-      bounty: "Mob: 1,600 Silver / 14 Scrap · Boss: 12,000 Silver / 95 Scrap",
+      bounty: "Mob: 1,600 Silver · 14 Nano-Alloy | Boss: 12,000 Silver · 95 Nano-Alloy",
       cap: "100 Pilots / Sector",
       img: "assets/img/scenery/black_dead_necropolis_planet.png",
       desc: "The innermost abyssal ring centered on the colossal 3×3 Central PK Zone with 12 entry ports. Source of Voidite and elite relics required to commission T5 Abyssal Dreadnoughts."
@@ -142,7 +142,7 @@ window.UNBOUND_CATALOG = {
       cost10x: "28,800 Silver",
       pity: "20-Pull Hard Pity (Guaranteed T3+)",
       img: "assets/img/npcs/npc_forge_master.png",
-      desc: "82% T1–T2 modules, 15% T3 modules, and 3% Warship Blueprint chance — all +0 fair base stats, zero Scrap cost."
+      desc: "82% T1–T2 modules, 15% T3 modules, and 3% Warship Blueprint chance — all +0 fair base stats, zero Nano-Alloy cost."
     },
     {
       id: "banner_gold_arsenal",
@@ -182,7 +182,7 @@ window.UNBOUND_CATALOG = {
       perks: [
         "180 Gold Reserve (Instant Delivery)",
         "+30 Sovereign Seals (◊)",
-        "50,000 Silver + 150 Alloy Scrap",
+        "50,000 Silver + 150 Nano-Alloy",
         "7-Day Citadel Premium Status",
         "T2 Scout Interceptor Hull + 5× T3 Repair Kits"
       ]
@@ -220,7 +220,7 @@ window.UNBOUND_CATALOG = {
       perks: [
         "1,200 Gold Reserve (Instant Delivery)",
         "+240 Sovereign Seals (◊)",
-        "180,000 Silver + 500 Alloy Scrap",
+        "180,000 Silver + 500 Nano-Alloy",
         "30-Day Citadel Premium + Sovereign Livery",
         "T3 Vanguard Corvette Hull + 10× T4 XL Kits"
       ]
@@ -297,7 +297,7 @@ window.UNBOUND_CATALOG = {
     },
     {
       q: "How do I earn ships without spending Gold?",
-      a: "All 5 playable warship classes (T1 Frontier Frigate through T5 Abyssal Dreadnought) can be crafted deterministically at the Citadel Foundry using earned Silver, Alloy Scrap, and mined ores (Ferrite, Argent, Aurum, Plasmite, Voidite), or traded on the player market."
+      a: "All 5 playable warship classes (T1 Frontier Frigate through T5 Abyssal Dreadnought) can be crafted deterministically at the Citadel Foundry using earned Silver, Nano-Alloy, and mined ores (Ferrite, Argent, Aurum, Plasmite, Voidite), or traded on the player market."
     },
     {
       q: "How do I request deletion of my Pilot Account and data?",

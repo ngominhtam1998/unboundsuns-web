@@ -38,14 +38,16 @@
     PK:      { label: "3×3 Central PK Core", color: "#ff2e88" }
   };
 
-  const SILVER_IMG = `<img src="assets/img/icons/silver_coin.png" alt="Silver" title="Silver" class="silver-icon" />`;
+  const SILVER_IMG = `<img src="assets/img/icons/silver_coin.png?v=20261121f" alt="Silver" title="Silver" class="silver-icon" />`;
+  const ALLOY_IMG = `<img src="assets/img/icons/nano_alloy.png?v=20261121f" alt="Nano-Alloy" title="Nano-Alloy" class="alloy-icon" />`;
   const fmtSilver = (n) => `<span class="silver-amt">${n}${SILVER_IMG}</span>`;
+  const fmtAlloy = (n) => `<span class="alloy-amt">${n}${ALLOY_IMG}</span>`;
 
   const RULES = {
-    Blue:   { pvp: "Safe Zone (Zero PvP)", ores: "Ferrite Ore (T1)", bounty: `Mob ${fmtSilver("120")} · Boss ${fmtSilver("900")}`, respawn: "Mob 45s (11s crowded) · Boss 3m" },
-    Yellow: { pvp: "Knockdown (8% Dur / 10% Ore)", ores: "Argent Ore (T2)", bounty: `Mob ${fmtSilver("260")} · Boss ${fmtSilver("2,200")}`, respawn: "Mob 75s (19s crowded) · Boss 4m" },
-    Red:    { pvp: "Full-Loot PvP", ores: "Aurum Ore (T3)", bounty: `Mob ${fmtSilver("520")} · Boss ${fmtSilver("4,800")}`, respawn: "Mob 100s (25s crowded) · Boss 5m" },
-    Black:  { pvp: "Unrestricted Full-Loot PvP", ores: "Plasmite (T4) · Voidite (T5)", bounty: `Mob ${fmtSilver("1,600")} · Boss ${fmtSilver("12,000")}`, respawn: "Mob 120s (30s crowded) · Boss 7m" }
+    Blue:   { pvp: "Safe Zone (Zero PvP)", ores: "Ferrite Ore (T1)", bounty: `Mob ${fmtSilver("120")} ${fmtAlloy("2")} · Boss ${fmtSilver("900")} ${fmtAlloy("15")}`, respawn: "Mob 45s (11s crowded) · Boss 3m" },
+    Yellow: { pvp: "Knockdown (8% Dur / 10% Ore)", ores: "Argent Ore (T2)", bounty: `Mob ${fmtSilver("260")} ${fmtAlloy("4")} · Boss ${fmtSilver("2,200")} ${fmtAlloy("28")}`, respawn: "Mob 75s (19s crowded) · Boss 4m" },
+    Red:    { pvp: "Full-Loot PvP", ores: "Aurum Ore (T3)", bounty: `Mob ${fmtSilver("520")} ${fmtAlloy("7")} · Boss ${fmtSilver("4,800")} ${fmtAlloy("50")}`, respawn: "Mob 100s (25s crowded) · Boss 5m" },
+    Black:  { pvp: "Unrestricted Full-Loot PvP", ores: "Plasmite (T4) · Voidite (T5)", bounty: `Mob ${fmtSilver("1,600")} ${fmtAlloy("14")} · Boss ${fmtSilver("12,000")} ${fmtAlloy("95")}`, respawn: "Mob 120s (30s crowded) · Boss 7m" }
   };
 
   // Load real Unity Black Hole VFX sprites and pre-tint them onto offscreen canvases to match BuildPkBlackHoleVfx
@@ -584,7 +586,7 @@
           <div class="dossier-row"><span>PvP Ruleset</span><strong>${z.np ? "Free-For-All (No Party)" : rule.pvp}</strong></div>
           <div class="dossier-row"><span>Sector Ceiling</span><strong>100 Pilots / Zone</strong></div>
           <div class="dossier-row"><span>Primary Ore</span><strong>${rule.ores}</strong></div>
-          <div class="dossier-row"><span>PvE Silver Reward</span><strong>${rule.bounty}</strong></div>
+          <div class="dossier-row"><span>PvE Loot Reward</span><strong>${rule.bounty}</strong></div>
           <div class="dossier-row"><span>Respawn Timer</span><strong>${rule.respawn}</strong></div>
           <div class="dossier-row"><span>Route from Hearthwell</span><strong style="color:var(--gold-bright)">${hops === 0 ? "Origin Citadel (A1)" : `${hops} Warp Jumps`}</strong></div>
         </div>

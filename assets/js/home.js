@@ -9,8 +9,13 @@
   const cat = window.UNBOUND_CATALOG;
   if (!cat) return;
 
-  const SILVER_ICON = `<img src="assets/img/icons/silver_coin.png" alt="Silver" title="Silver" class="silver-icon" />`;
-  const withSilverIcon = (text) => String(text).replace(/\b([\d,]+)\s*Silver\b/g, `<span class="silver-amt">$1${SILVER_ICON}</span>`);
+  const SILVER_ICON = `<img src="assets/img/icons/silver_coin.png?v=20261121f" alt="Silver" title="Silver" class="silver-icon" />`;
+  const GOLD_ICON = `<img src="assets/img/icons/gold_coin.png?v=20261121f" alt="Gold" title="Gold" class="gold-icon" />`;
+  const ALLOY_ICON = `<img src="assets/img/icons/nano_alloy.png?v=20261121f" alt="Nano-Alloy" title="Nano-Alloy" class="alloy-icon" />`;
+  const withCurrencyIcons = (text) => String(text)
+    .replace(/\b([\d,]+)\s*Gold\b/g, `<span class="gold-amt">$1${GOLD_ICON}</span>`)
+    .replace(/\b([\d,]+)\s*Silver\b/g, `<span class="silver-amt">$1${SILVER_ICON}</span>`)
+    .replace(/\b([\d,]+)\s*(?:Nano-Alloy|Alloy)\b/g, `<span class="alloy-amt">$1${ALLOY_ICON}</span>`);
 
   // ---------- 1. Fleet Hangar ----------
   const fleetList = document.getElementById("fleet-list");
@@ -47,8 +52,8 @@
         <div class="craft-box">
           <div class="craft-box-title">Citadel Foundry Acquisition</div>
           <div class="craft-meta">
-            <div>Cost: <strong>${withSilverIcon(ship.craftCost.credits)}</strong></div>
-            <div>Scrap: <strong>${ship.craftCost.scrap}</strong></div>
+            <div>Silver: <strong>${withCurrencyIcons(ship.craftCost.credits)}</strong></div>
+            <div>Nano-Alloy: <strong>${withCurrencyIcons(ship.craftCost.scrap)}</strong></div>
             <div style="grid-column:1/-1">Materials: <strong>${ship.craftCost.ores}</strong></div>
           </div>
         </div>
@@ -99,7 +104,7 @@
         </p>
         <div class="frontier-grid-meta">
           <div class="frontier-stat"><span>Native Ores</span><strong>${f.ores.join(" · ")}</strong></div>
-          <div class="frontier-stat"><span>Bounty &amp; Salvage</span><strong>${withSilverIcon(f.bounty)}</strong></div>
+          <div class="frontier-stat"><span>Bounty &amp; Salvage</span><strong>${withCurrencyIcons(f.bounty)}</strong></div>
           <div class="frontier-stat"><span>Zone Population Cap</span><strong>${f.cap}</strong></div>
           <div class="frontier-stat"><span>Active Sectors</span><strong>${f.count} Connected Nodes</strong></div>
         </div>
@@ -139,8 +144,8 @@
         </div>
         <p style="margin:0;color:var(--text-secondary);font-size:0.92rem;flex:1">${b.desc}</p>
         <div class="banner-specs">
-          <div><span>Single Pull (1×)</span><strong>${withSilverIcon(b.cost1x)}</strong></div>
-          <div><span>Multi Pull (10×)</span><strong>${withSilverIcon(b.cost10x)}</strong></div>
+          <div><span>Single Pull (1×)</span><strong>${withCurrencyIcons(b.cost1x)}</strong></div>
+          <div><span>Multi Pull (10×)</span><strong>${withCurrencyIcons(b.cost10x)}</strong></div>
           <div><span>Server Hard Pity</span><strong style="color:var(--cyan)">${b.pity}</strong></div>
         </div>
       </article>
