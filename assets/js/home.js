@@ -71,7 +71,7 @@
       btn.classList.add("active");
       renderShip(cat.ships[Number(btn.dataset.shipIdx)]);
     });
-    renderShip(cat.ships[2]); // Default spotlight: T3 Aegis Vanguard Corvette
+    renderShip(cat.ships[2]); // Default spotlight: T3 Vanguard Corvette (fns1.png)
   }
 
   // ---------- 2. Four Security Frontiers ----------

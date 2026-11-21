@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Official Web Shop (−30% Direct Visa) — UNBOUND SUNS</title>
-  <meta name="description" content="Official standalone Web Shop for Unbound Suns. Save 30% compared to in-app store pricing on all 9 Citadel Gold Packs, 30-Day Premium Pass, and Starter/Commander Bundles via Visa and Mastercard." />
+  <title>Official Web Shop (−30% Direct via Tebex) — UNBOUND SUNS</title>
+  <meta name="description" content="Official standalone Tebex Web Shop for Unbound Suns. Save 30% vs in-app mobile store pricing on all 9 Citadel Gold Packs, 30-Day Premium Pass, and Armada Bundles with Visa, Mastercard, and 130+ global methods." />
   <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -17,17 +17,17 @@
   <main>
     <section class="page-hero">
       <div class="container">
-        <div class="eyebrow gold">OFFICIAL DIRECT-TO-PILOT STOREFRONT</div>
+        <div class="eyebrow gold">OFFICIAL DIRECT-TO-PILOT STOREFRONT · POWERED BY TEBEX</div>
         <h1 class="section-title" style="margin-bottom:12px">CITADEL <span>WEB SHOP</span> · SAVE 30%</h1>
         <p class="section-lead" style="max-width:780px">
-          Direct international Visa, Mastercard, JCB, and Amex checkout with <strong>30% lower prices than in-app mobile store pricing</strong> across all 9 official Citadel packs. Every purchase credits directly to your shared AETHER-01 server account and syncs across PC and Mobile.
+          Direct international checkout powered by <strong>Tebex</strong> (Visa, Mastercard, Apple Pay, Google Pay &amp; 130+ global payment methods) with <strong>30% lower prices than in-app mobile store pricing</strong> across all 9 official Citadel packs. Every purchase credits automatically to your shared AETHER-01 account across PC and Mobile.
         </p>
         <div class="visa-badges" style="margin-top:18px">
+          <span class="visa-badge">TEBEX VERIFIED</span>
           <span class="visa-badge">VISA</span>
           <span class="visa-badge">MASTERCARD</span>
-          <span class="visa-badge">JCB</span>
-          <span class="visa-badge">AMEX</span>
-          <span class="visa-badge" style="border-color:rgba(56,242,158,0.45);color:var(--green)">3D SECURE 2.0</span>
+          <span class="visa-badge">APPLE / GOOGLE PAY</span>
+          <span class="visa-badge" style="border-color:rgba(56,242,158,0.45);color:var(--green)">130+ GLOBAL METHODS</span>
           <span class="visa-badge" style="border-color:rgba(240,185,86,0.45);color:var(--gold-bright)">−30% VS IN-APP</span>
         </div>
       </div>
@@ -35,10 +35,12 @@
 
     <section style="padding-top:42px">
       <div class="container">
+        <div id="tebex-return-banner" class="status-msg" style="margin:0 0 20px"></div>
+
         <!-- Regional Compliance Notice (Global USD, 100% Excluding Vietnam) -->
         <div class="region-notice">
           <div>
-            <strong>GLOBAL INTERNATIONAL WEB STORE (USD ONLY)</strong> — Operated independently outside mobile app stores for international players. Restricted territories (including Vietnam) are excluded at edge/payment level.
+            <strong>GLOBAL INTERNATIONAL WEB STORE (USD · TEBEX MERCHANT OF RECORD)</strong> — Operated independently outside mobile app stores for international players. Restricted territories (including Vietnam) are excluded at edge/payment level.
           </div>
           <span style="font-family:var(--font-tech);font-weight:700;letter-spacing:0.12em;color:var(--cyan)">ZERO APP-STORE MARKUP</span>
         </div>
@@ -89,9 +91,9 @@
               </p>
             </div>
             <div>
-              <h3 style="font-family:var(--font-display);font-size:1.06rem;margin:0 0 8px">Authoritative Idempotent Delivery</h3>
+              <h3 style="font-family:var(--font-display);font-size:1.06rem;margin:0 0 8px">Cryptographic Tebex Webhook Delivery</h3>
               <p style="color:var(--text-secondary);font-size:0.92rem;margin:0">
-                Every Visa order uses an <code>Idempotency-Key</code> and double-entry SQLite transaction audit on <strong>AETHER-01</strong>. Your Gold and Sovereign Seals arrive automatically on your Pilot Account across both PC and Android clients with zero risk of double-charging.
+                Every completed order is verified on <strong>AETHER-01</strong> via Tebex's two-step SHA-256 + HMAC-SHA256 <code>X-Signature</code> webhook (<code>POST /api/billing/tebex/webhook</code>) with idempotent double-entry SQLite ledger protection.
               </p>
             </div>
           </div>

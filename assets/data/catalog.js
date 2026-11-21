@@ -1,171 +1,148 @@
 /**
- * Authentic Unbound Suns game catalog synced with UnboundSuns.Server & world.json.
+ * Authentic Unbound Suns game catalog audited 1-to-1 against:
+ * - Assets/Resources/OpenWorld/map_manifest.json
+ * - Assets/Scripts/Domain/OpenWorld/Citadel/OpenWorldCitadelRules.cs
+ * - Assets/Scripts/Domain/OpenWorld/OpenWorldPartyRules.cs
+ * - Assets/Scripts/Gui/Combat/OpenWorldWorldMapRenderer.cs
+ * - server/UnboundSuns.Server/GameStore.cs & GameStore.OnlineWorld.cs
  */
 window.UNBOUND_CATALOG = {
+  // Exact 5 playable progression hulls (Ship IDs 17, 901, 71, 73, 74)
   ships: [
     {
       id: "craft_frigate",
+      shipId: 17,
       tier: "TIER I",
       tierNum: 1,
-      name: "Vanguard Frigate",
+      name: "Frontier Frigate",
       role: "Starter Multi-Role Hull",
-      img: "assets/img/ships/f0s1.png",
-      tagline: "Balanced orbital workhorse engineered for Blue-zone mining, station hauling, and early pirate patrols.",
-      stats: { armor: 38, shield: 32, speed: 68, firepower: 34, cargo: 42 },
+      img: "assets/img/ships/f1s1.png",
+      tagline: "Reliable orbital workhorse designed for Blue-zone mining, early pirate contracts, and safe station hauling between Hearthwell and outer Citadels.",
+      stats: { armor: 38, shield: 35, speed: 68, firepower: 38, cargo: 44 },
       craftCost: { credits: "2,400 Silver", scrap: "10 Alloy Scrap", ores: "No refined ores required" },
-      zoneRec: "Blue & Yellow Sectors"
+      zoneRec: "Blue Safe Sectors (108)"
     },
     {
       id: "craft_scout",
+      shipId: 901,
       tier: "TIER II",
       tierNum: 2,
-      name: "Horizon Scout Interceptor",
-      role: "High-Velocity Recon & Tackle",
+      name: "Scout Interceptor",
+      role: "High-Velocity Recon & Salvage",
       img: "assets/img/ships/poc_scout_901.png",
-      tagline: "Twin-thruster interceptor built to outrun gank squads, scout Red warp gates, and secure derelict wrecks first.",
-      stats: { armor: 42, shield: 45, speed: 94, firepower: 46, cargo: 36 },
+      tagline: "High-thrust interceptor engineered to scout contested Yellow jump gates, outrun hostile gank squads, and claim derelict containers first.",
+      stats: { armor: 44, shield: 48, speed: 95, firepower: 50, cargo: 38 },
       craftCost: { credits: "3,600 Silver", scrap: "18 Alloy Scrap", ores: "30 Ferrite · 16 Argent" },
-      zoneRec: "Yellow & Red Scouting"
+      zoneRec: "Yellow Contested Sectors (112)"
     },
     {
       id: "craft_vanguard_corvette",
+      shipId: 71,
       tier: "TIER III",
       tierNum: 3,
-      name: "Aegis Vanguard Corvette",
-      role: "Twin-Railgun Skirmisher",
-      img: "assets/img/ships/f1s1.png",
-      tagline: "Forward-swept strike craft packing twin axial railguns and plasma afterburners for lethal small-gang PvP.",
-      stats: { armor: 58, shield: 64, speed: 84, firepower: 70, cargo: 50 },
+      name: "Vanguard Corvette",
+      role: "Triple-Thruster Combat Skirmisher",
+      img: "assets/img/ships/fns1.png",
+      tagline: "Heavy-turret gunship with triple plasma drives and balanced shielding. Core frontline vessel for Red Lethal raids and small-gang PvP.",
+      stats: { armor: 64, shield: 66, speed: 78, firepower: 74, cargo: 56 },
       craftCost: { credits: "8,500 Silver", scrap: "40 Alloy Scrap", ores: "48 Argent · 28 Aurum" },
-      zoneRec: "Red Frontier Raids"
-    },
-    {
-      id: "hull_destroyer",
-      tier: "TIER IV",
-      tierNum: 4,
-      name: "Bastion Assault Destroyer",
-      role: "Line-Breaker Escort",
-      img: "assets/img/ships/f2s1.png",
-      tagline: "Reinforced titanium bulkhead frame designed to absorb heavy pulse volleys while shredding hostile interceptors.",
-      stats: { armor: 72, shield: 68, speed: 64, firepower: 78, cargo: 64 },
-      craftCost: { credits: "14,500 Silver", scrap: "62 Alloy Scrap", ores: "60 Aurum · 30 Plasmite" },
-      zoneRec: "Red & Outer Black Sectors"
+      zoneRec: "Red Lethal Frontier (76)"
     },
     {
       id: "craft_war_cruiser",
-      tier: "TIER V",
-      tierNum: 5,
-      name: "Tempest Heavy War Cruiser",
-      role: "Fleet Command & Siege",
-      img: "assets/img/ships/f5s1.png",
-      tagline: "Armored fleet anchor mounting crystallized Bionic Armor, Shield Matrix Mk.V, and sustained Heavy Railgun batteries.",
-      stats: { armor: 84, shield: 82, speed: 54, firepower: 88, cargo: 78 },
-      craftCost: { credits: "22,000 Silver", scrap: "85 Alloy Scrap", ores: "75 Aurum · 40 Plasmite" },
-      zoneRec: "Black Void Fleet Battles"
+      shipId: 73,
+      tier: "TIER IV",
+      tierNum: 4,
+      name: "Heavy War Cruiser",
+      role: "Axial Plasma Fleet Anchor",
+      img: "assets/img/ships/fns6.png",
+      tagline: "Gilded white-titanium cruiser built around an axial plasma lance core. Anchors guild battle lines across Black Void anomalies and World Boss hunts.",
+      stats: { armor: 84, shield: 86, speed: 56, firepower: 88, cargo: 78 },
+      craftCost: { credits: "22,000 Silver", scrap: "85 Alloy Scrap", ores: "75 Aurum · 40 Plasmite (or 45 Armada Crests)" },
+      zoneRec: "Black Abyssal Void (53)"
     },
     {
       id: "craft_abyss_dreadnought",
-      tier: "TIER VI",
-      tierNum: 6,
+      shipId: 74,
+      tier: "TIER V",
+      tierNum: 5,
       name: "Abyssal Dreadnought",
-      role: "Full-Loot Capital Titan",
-      img: "assets/img/ships/f8s1.png",
-      tagline: "Colossal twin-prow capital hull forged from pure Voidite. Commands Black-Zone anomalies, World Bosses, and Guild citadels.",
-      stats: { armor: 98, shield: 92, speed: 38, firepower: 97, cargo: 96 },
-      craftCost: { credits: "55,000 Silver", scrap: "160 Alloy Scrap", ores: "100 Plasmite · 50 Voidite" },
-      zoneRec: "Central Abyssal PK Core"
-    },
-    {
-      id: "armada_sovereign",
-      tier: "SOVEREIGN",
-      tierNum: 7,
-      name: "Sovereign Solar Flagship",
-      role: "Armada Banner Showcase Hull",
-      img: "assets/img/ships/fns6.png",
-      tagline: "Gilded white-titanium flagship featuring an axial plasma lance core and ceremonial AetherForge livery.",
-      stats: { armor: 95, shield: 98, speed: 62, firepower: 96, cargo: 88 },
-      craftCost: { credits: "Sovereign Armada Banner", scrap: "30-Pull Hard Pity", ores: "Sovereign Seals & Armada Crests" },
-      zoneRec: "All Frontiers & Arena"
-    },
-    {
-      id: "armada_siege_carrier",
-      tier: "CAPITAL",
-      tierNum: 7,
-      name: "Ironclad Twin-Hull Carrier",
-      role: "Deep-Space Salvage & Siege",
-      img: "assets/img/ships/ship9.png",
-      tagline: "Twin-fuselage industrial warship bristling with flak batteries and reinforced salvage bays for extended Void expeditions.",
-      stats: { armor: 96, shield: 85, speed: 44, firepower: 92, cargo: 100 },
-      craftCost: { credits: "Guild Shipyard Blueprint", scrap: "Fleet Assembly", ores: "High-Grade Plasmite & Voidite" },
-      zoneRec: "Black Zone Guild Ops"
+      role: "Apex Full-Loot Capital Warship",
+      img: "assets/img/ships/fns7.png",
+      tagline: "Six-thruster obsidian-and-crimson apex hull forged from pure Voidite. Commands the 3×3 Central PK Zone, Abyssal World Bosses, and guild warfare.",
+      stats: { armor: 98, shield: 96, speed: 44, firepower: 99, cargo: 96 },
+      craftCost: { credits: "55,000 Silver", scrap: "160 Alloy Scrap", ores: "100 Plasmite · 50 Voidite (or 90 Armada Crests)" },
+      zoneRec: "3×3 Central PK Core (J8–L10)"
     }
   ],
 
+  // Exact rules from OpenWorldMapRisk.cs, OpenWorldCitadelRules.cs & GameStore.OnlineWorld.cs
   frontiers: [
     {
       id: "Blue",
       name: "BLUE SAFE ZONES",
       count: 108,
-      color: "#38e8ff",
-      risk: "ZERO PVP LOSS",
-      pvpRule: "Non-lethal protected space. Hostile player weapons are suppressed by Citadel Defense Relays.",
-      ores: ["Ferrite Ore (T1)", "Argent Ore (T2)"],
-      bounty: "1.0× Base Silver · Starter Contracts",
+      color: "#34b2ff",
+      risk: "ZERO PVP LOSS · 11 CITADELS",
+      pvpRule: "Fully protected Concord space. Hostile player weapons are disabled; dock at 11 Blue Citadels for Foundry crafting, OrderBook trading, and Personal Homestead access.",
+      ores: ["Ferrite Ore (T1)"],
+      bounty: "Mob: 120 Silver / 2 Scrap · Boss: 900 Silver / 15 Scrap",
       cap: "100 Pilots / Sector",
       img: "assets/img/scenery/blue_ringed_gas_giant.png",
-      desc: "Home to the primary orbital Citadels, Trade Exchanges, and Shipyard Foundries. Ideal for fitting ships, placing market orders, crafting T1–T2 gear, and preparing your fleet before jumping outward."
+      desc: "The outer ring of the 21×17 galactic matrix anchored by Hearthwell (A1). Safe for learning Newtonian drift flight, refining T1–T2 Titanium modules, and staging guild logistics."
     },
     {
       id: "Yellow",
       name: "YELLOW CONTESTED ZONES",
       count: 112,
-      color: "#f5c542",
-      risk: "KNOCKDOWN PVP",
-      pvpRule: "Flagged combat enabled — defeated ships suffer durability damage and warp-out, keeping fitted gear intact.",
-      ores: ["Ferrite Ore (T1)", "Argent Ore (T2)", "Aurum Ore (T3)"],
-      bounty: "1.6× Silver & Scrap · Rich Asteroid Belts",
+      color: "#ffc026",
+      risk: "KNOCKDOWN PVP · 5 CITADELS",
+      pvpRule: "Non-lethal knockdown PvP: defeated ships take 8% gear durability loss and scatter 10% of carried ore, while keeping fitted modules and hull intact.",
+      ores: ["Argent Ore (T2)", "Rich Yellow Ore Belts"],
+      bounty: "Mob: 260 Silver / 4 Scrap · Boss: 2,200 Silver / 28 Scrap",
       cap: "100 Pilots / Sector",
       img: "assets/img/scenery/yellow_cracked_mining_moon.png",
-      desc: "Abandoned refineries and cracked mining moons contested by roaming raiders and rival pilots. Test PvP builds without risking hull destruction while farming T2–T3 crafting materials."
+      desc: "Contested mining moons and derelict refineries ringed around the middle frontier. Features 5 forward Outpost Citadels and high-yield Argent asteroid belts."
     },
     {
       id: "Red",
       name: "RED LETHAL FRONTIER",
       count: 76,
-      color: "#ff4b6b",
-      risk: "FULL-LOOT PVP",
-      pvpRule: "Lethal open PvP. Destroyed vessels drop salvageable cargo and fittings into persistent wreckage fields.",
-      ores: ["Aurum Ore (T3)", "Plasmite Ore (T4)"],
-      bounty: "2.8× Silver · High-Tier Salvage & Boss Relics",
+      color: "#ff3e44",
+      risk: "FULL-LOOT PVP · NO CITADELS",
+      pvpRule: "Lethal open PvP with zero safe docking stations. Destroyed hulls drop salvageable cargo and equipment into persistent wreckage fields.",
+      ores: ["Aurum Ore (T3)", "High-Risk Shipwrecks"],
+      bounty: "Mob: 520 Silver / 7 Scrap · Boss: 4,800 Silver / 50 Scrap",
       cap: "100 Pilots / Sector",
       img: "assets/img/scenery/red_shattered_dreadnought.png",
-      desc: "Shattered dreadnought graveyards and bleeding magma worlds where scouts watch every warp gate. High-risk expeditions yield Plasmite veins and elite blueprint salvage."
+      desc: "Shattered dreadnought graveyards and magma worlds guarding the inner perimeter. Former stations here have been converted into Warp Portals, Rich Ore Belts, Shipwrecks, and Boss Hazards."
     },
     {
       id: "Black",
       name: "BLACK ABYSSAL VOID",
       count: 53,
-      color: "#b47aff",
-      risk: "UNRESTRICTED FULL-LOOT",
-      pvpRule: "Zero Concord security. Free-fire open-world warfare, Guild territory clashes, and Central PK Core World Bosses.",
-      ores: ["Plasmite Ore (T4)", "Voidite Ore (T5–T6)"],
-      bounty: "4.5× Silver (+1,600S/Mob) · Voidite & Abyssal Loot",
+      color: "#bc48ff",
+      risk: "UNRESTRICTED FULL-LOOT · 3×3 PK CORE",
+      pvpRule: "Total lawless space surrounding the 3×3 Central PK Zone (J8–L10, No-Party Free-For-All). Maximum Silver payouts, Voidite World Bosses, and guild warfare.",
+      ores: ["Plasmite Ore (T4)", "Voidite Ore (T5 Boss Drop)"],
+      bounty: "Mob: 1,600 Silver / 14 Scrap · Boss: 12,000 Silver / 95 Scrap",
       cap: "100 Pilots / Sector",
       img: "assets/img/scenery/black_dead_necropolis_planet.png",
-      desc: "The deepest frontier surrounding the Abyssal Singularity. Home to Leviathan ruins, World Boss encounters, and Voidite deposits required to commission Tier VI Abyssal Dreadnoughts."
+      desc: "The innermost abyssal ring centered on the colossal 3×3 Central PK Zone with 12 entry ports. Source of Voidite and elite relics required to commission T5 Abyssal Dreadnoughts."
     }
   ],
 
+  // Exact 3 Gacha Banners from OpenWorldCitadelRules.cs & GameStore.OnlineWorld.cs
   banners: [
     {
       id: "banner_silver_frontier",
       name: "FRONTIER SURPLUS CACHE",
-      currency: "Silver (Free Earned)",
+      currency: "Silver (100% Free Earned)",
       cost1x: "3,200 Silver",
       cost10x: "28,800 Silver",
-      pity: "20-Pull Hard Pity (Guaranteed T3 Module)",
+      pity: "20-Pull Hard Pity (Guaranteed T3+)",
       img: "assets/img/npcs/npc_forge_master.png",
-      desc: "100% Silver-accessible supply cache stocked with T1–T3 Titanium Armor, Reactors, Fuel Cells, and Pulse Cannons."
+      desc: "82% T1–T2 modules, 15% T3 modules, and 3% Warship Blueprint chance — all +0 fair base stats, zero Scrap cost."
     },
     {
       id: "banner_gold_arsenal",
@@ -173,9 +150,9 @@ window.UNBOUND_CATALOG = {
       currency: "Gold",
       cost1x: "60 Gold",
       cost10x: "540 Gold",
-      pity: "30-Pull Hard Pity (Guaranteed T5/T6 Masterpiece)",
+      pity: "30-Pull Hard Pity (T5/T6 Masterpiece)",
       img: "assets/img/npcs/npc_grand_broker.png",
-      desc: "High-grade combat arsenal featuring T3–T6 Bionic Armor, Heavy Railguns, and Crystallized Shield Generators."
+      desc: "High-tier combat hardware featuring T3–T6 Bionic Armor, Shield Generators, Fuel Cells, and Crystallized Heavy Railguns."
     },
     {
       id: "banner_gold_armada",
@@ -183,12 +160,13 @@ window.UNBOUND_CATALOG = {
       currency: "Gold",
       cost1x: "120 Gold",
       cost10x: "1,080 Gold",
-      pity: "30-Pull Hard Pity + Sovereign Armada Crests",
+      pity: "30-Pull Pity · 45 Crests T4 / 90 Crests T5",
       img: "assets/img/npcs/npc_shipyard_admiral.png",
-      desc: "Elite hull requisition banner awarding rare Armada Crests, Sovereign Flagship schematics, and top-tier tactical modules."
+      desc: "Warship requisition banner dropping T3 Vanguard Corvette, T4 Heavy War Cruiser, and T5 Abyssal Dreadnought plus guaranteed Armada Crests."
     }
   ],
 
+  // Exact 9 official Citadel Store SKUs at -30% direct Web Shop pricing (Tebex Global USD)
   shopBundles: [
     {
       sku: "citadel_pack_starter",
@@ -215,7 +193,7 @@ window.UNBOUND_CATALOG = {
       inAppUsd: 14.99,
       priceUsd: 10.49,
       discountPct: 30,
-      badge: "BEST SELLER · -30% WEB",
+      badge: "BEST SELLER · −30% WEB",
       highlight: true,
       icon: "assets/img/scenery/citadel_dyson_halo.png",
       gold: 0,
@@ -236,7 +214,7 @@ window.UNBOUND_CATALOG = {
       discountPct: 30,
       badge: "SAVE $9.00 · 1-TIME",
       highlight: false,
-      icon: "assets/img/ships/f1s1.png",
+      icon: "assets/img/ships/fns1.png",
       gold: 1200,
       seals: 240,
       perks: [
@@ -250,9 +228,9 @@ window.UNBOUND_CATALOG = {
   ],
 
   goldPacks: [
-    { sku: "citadel_gold_60", title: "POUCH OF GOLD", inAppUsd: 0.99, priceUsd: 0.69, discountPct: 30, baseGold: 60, repeatBonus: 0, seals: 10, badge: "STARTER · -30% WEB" },
-    { sku: "citadel_gold_300", title: "CACHE OF GOLD", inAppUsd: 4.99, priceUsd: 3.49, discountPct: 30, baseGold: 300, repeatBonus: 30, seals: 50, badge: "-30% WEB · +10% REPEAT" },
-    { sku: "citadel_gold_600", title: "STRONGHOLD CHEST", inAppUsd: 9.99, priceUsd: 6.99, discountPct: 30, baseGold: 600, repeatBonus: 90, seals: 110, badge: "-30% WEB · +15% REPEAT" },
+    { sku: "citadel_gold_60", title: "POUCH OF GOLD", inAppUsd: 0.99, priceUsd: 0.69, discountPct: 30, baseGold: 60, repeatBonus: 0, seals: 10, badge: "STARTER · −30% WEB" },
+    { sku: "citadel_gold_300", title: "CACHE OF GOLD", inAppUsd: 4.99, priceUsd: 3.49, discountPct: 30, baseGold: 300, repeatBonus: 30, seals: 50, badge: "−30% WEB · +10% REPEAT" },
+    { sku: "citadel_gold_600", title: "STRONGHOLD CHEST", inAppUsd: 9.99, priceUsd: 6.99, discountPct: 30, baseGold: 600, repeatBonus: 90, seals: 110, badge: "−30% WEB · +15% REPEAT" },
     { sku: "citadel_gold_1500", title: "CITADEL VAULT", inAppUsd: 24.99, priceUsd: 17.49, discountPct: 30, baseGold: 1500, repeatBonus: 300, seals: 280, badge: "POPULAR · SAVE $7.50", popular: true },
     { sku: "citadel_gold_3200", title: "WARLORD TREASURY", inAppUsd: 49.99, priceUsd: 34.99, discountPct: 30, baseGold: 3200, repeatBonus: 800, seals: 600, badge: "SAVE $15.00 · +25% REPEAT" },
     { sku: "citadel_gold_6500", title: "SOVEREIGN MINT", inAppUsd: 99.99, priceUsd: 69.99, discountPct: 30, baseGold: 6500, repeatBonus: 1950, seals: 1300, badge: "MAX VALUE · SAVE $30.00" }
@@ -260,70 +238,70 @@ window.UNBOUND_CATALOG = {
 
   news: [
     {
-      id: "patch-2026-11-20",
-      date: "NOV 20, 2026",
-      tag: "SERVER UPDATE",
-      title: "Full Server Authority, Authenticated UDP Tickets & Anti-Cheat Live on AETHER-01",
-      excerpt: "Every Citadel Foundry craft, Gacha pull, Quest milestone, P2P Trade, PvE mob kill, and UDP sector join is now 100% server-validated on our global cloud shard.",
+      id: "patch-2026-11-21",
+      date: "NOV 21, 2026",
+      tag: "WEB SHOP & SECURITY",
+      title: "Direct Tebex Global Web Shop (−30%) & Cryptographic Webhook Fulfillment",
+      excerpt: "Unbound Suns now integrates Tebex Headless Checkout with 130+ international payment methods, zero-penalty chargeback protection, and automated server fulfillment.",
       img: "assets/img/scenery/citadel_dyson_halo.png",
       body: [
-        "The latest authoritative UnboundSuns.Server build is now live on our global shard, bringing end-to-end cryptographic UDP ticket handshakes, server-side PvE mob health tracking, and real-time movement anomaly enforcement.",
-        "Every pilot entering Open World space now authenticates through PBKDF2-hardened account credentials and receives a single-use UDP join ticket before entering any of the 349 sectors.",
-        "Double-entry SQLite ledger auditing guarantees zero item duplication across Player Trading, Market OrderBooks, Guild Vault transfers, and Foundry crafting."
+        "Players outside restricted regions can now top up Gold Reserves, the 30-Day Citadel Premium Pass, and one-time Armada Bundles at 30% below mobile store prices via our standalone Tebex-powered Web Shop.",
+        "Every completed Tebex transaction is cryptographically verified on AETHER-01 via two-step SHA-256 + HMAC-SHA256 X-Signature validation before crediting double-entry SQLite ledger entries.",
+        "First-time 2× Gold bonuses and Sovereign Seals (◊) apply identically across web and in-game purchases."
       ]
     },
     {
       id: "zone-cap-100",
-      date: "NOV 19, 2026",
-      tag: "DESIGN BRIEF",
-      title: "Albion-Style 100-Pilot Sector Cap & Smooth Overcrowding Protection",
-      excerpt: "To preserve crisp 20Hz fleet combat and zero rubber-banding during mega-guild clashes, each sector enforces a strict 100-pilot hard ceiling.",
+      date: "NOV 20, 2026",
+      tag: "SERVER AUTHORITY",
+      title: "21×17 Galactic Matrix, 100-Pilot Zone Cap & Authenticated UDP Tickets",
+      excerpt: "All 349 sectors—including the 3×3 No-Party Central PK Core—enforce authenticated UDP join tickets, server-owned PvE mob HP, and a 100-pilot ceiling per zone.",
       img: "assets/img/keyart/warfare_banner.jpg",
       body: [
-        "Large-scale full-loot battles are the heart of Unbound Suns, but unbounded crowds degrade simulation fidelity. Starting with this release, every sector enforces a deterministic 100-pilot ceiling.",
-        "When a zone reaches capacity, inbound pilots attempting to warp across a jump gate receive an instant Sector Overcrowded alert and safely remain in their departure sector until slots open.",
-        "Server-side stealth culling also prevents wallhack clients from ever receiving coordinates of cloaked scouts."
+        "To guarantee smooth 20Hz Newtonian combat during massive guild battles around Central PK Zone (J8–L10), every sector enforces a deterministic 100-pilot cap.",
+        "Inbound pilots attempting to cross into a 100/100 full sector receive an immediate overcrowding alert and safely stay in their departure sector.",
+        "All PvE mob kills, World Boss bounties (up to 12,000 Silver + Voidite in Black sectors), and ore mining claims are verified strictly server-side."
       ]
     },
     {
       id: "closed-beta-2026",
       date: "NOV 18, 2026",
-      tag: "ROADMAP",
-      title: "Global Closed Beta Recruitment & Cross-Platform Playtest Program",
-      excerpt: "Android & Windows PC pilots share a single persistent universe. Join Closed Beta to stress-test Black-Zone Dreadnought sieges and earn Pioneer honors.",
+      tag: "SANCTUARIES & CO-OP",
+      title: "Personal Homesteads, Guild Sanctuaries & +12% Wingman Co-op Bonuses",
+      excerpt: "Build your off-grid Automated Harvester Homestead, share loot through Guild Vaults, and deploy squadrons across 16 Citadels and 24 deep-space landmarks.",
       img: "assets/img/scenery/black_abyssal_singularity.png",
       body: [
-        "Unbound Suns operates strictly as a persistent online-only universe shared across Android and Windows PC clients.",
-        "Pioneer Closed Beta waves are rolling out internationally via Google Play Closed Testing (excluding restricted territories) and direct PC Playtest packages.",
-        "All verified bug reports submitted through the in-game Feedback panel or Pilot Support Center go directly to the core engineering team."
+        "Outside the 21×17 main matrix, pilots can warp to private Personal Homesteads with upgradable Automated Harvesters or rally inside shared Guild Sanctuaries.",
+        "Flying in a party grants a +12% Co-op Bonus per wingman outside No-Party zones, encouraging coordinated Yellow/Red/Black raids.",
+        "Cross-platform Closed Beta invites for Android 12+ and Windows 64-bit PC are now open via the Support Center."
       ]
     }
   ],
 
   faqs: [
     {
-      q: "Is Unbound Suns truly online-only and single-shard?",
-      a: "Yes. Unbound Suns is built strictly as a persistent online-only open-world MMORPG. All 349 sectors, player markets, guild vaults, and fleet battles run on authoritative 20Hz servers with zero offline save-editing exploits."
+      q: "Is Unbound Suns strictly online-only and single-shard?",
+      a: "Yes. Unbound Suns operates exclusively as a persistent online-only universe across all 349 sectors (21×17 Galactic Matrix), 16 Orbital Citadels, 24 tactical landmarks, and off-grid Personal Homesteads / Guild Sanctuaries."
     },
     {
-      q: "How do the four security zones (Blue, Yellow, Red, Black) work?",
-      a: "Blue zones (108 sectors) are completely safe for trading and crafting. Yellow zones (112 sectors) feature non-lethal knockdown PvP. Red (76 sectors) and Black Abyssal zones (53 sectors) are full-loot PvP frontiers with massively higher Silver bounties and rare Plasmite/Voidite ores."
+      q: "What are the exact PvP loss rules across Blue, Yellow, Red, and Black zones?",
+      a: "Blue zones (108 sectors, 11 Citadels) are 100% safe. Yellow zones (112 sectors, 5 Citadels) use knockdown PvP (8% durability loss and 10% carried ore scatter, fitted gear stays safe). Red (76 sectors) and Black (53 sectors + 3×3 No-Party Central PK Zone) are full-loot PvP frontiers."
     },
     {
-      q: "What happens if a sector is full during a large guild battle?",
-      a: "Each sector supports up to 100 simultaneous pilots to guarantee smooth 20Hz combat. If a destination sector is at 100/100 capacity, the jump gate notifies you that the sector is overcrowded and keeps your ship safely in your current sector."
+      q: "How does the 100-pilot sector cap work?",
+      a: "Every sector supports up to 100 simultaneous pilots to maintain smooth 20Hz authoritative flight. If a sector is full (100/100), jump gates notify you that the sector is overcrowded and keep your ship safely in your current sector."
     },
     {
-      q: "How does the Official Web Shop relate to Google Play?",
-      a: "Our standalone Web Shop operates independently outside Google Play for global international players (USD, excluding Vietnam and restricted territories). Purchases credit directly to your shared Unbound Suns server account and sync automatically when you log in on any supported platform."
+      q: "How does the −30% Tebex Web Shop deliver Gold to my game account?",
+      a: "Enter your Pilot Username or Account ID on shop.html and check out through Tebex (supporting Visa, Mastercard, Apple Pay, Google Pay, and 130+ international methods). Tebex sends a signed HMAC-SHA256 webhook directly to AETHER-01, instantly crediting your shared PC/Android account."
     },
     {
-      q: "Are gacha and loot drop rates transparent?",
-      a: "Yes. All three Citadel Banners use server-side cryptographic RNG with fixed hard-pity guarantees (20 pulls on the free Silver Frontier Surplus Cache; 30 pulls on both Gold Sovereign Banners)."
+      q: "How do I earn ships without spending Gold?",
+      a: "All 5 playable warship classes (T1 Frontier Frigate through T5 Abyssal Dreadnought) can be crafted deterministically at the Citadel Foundry using earned Silver, Alloy Scrap, and mined ores (Ferrite, Argent, Aurum, Plasmite, Voidite), or traded on the player market."
     },
     {
       q: "How do I request deletion of my Pilot Account and data?",
-      a: "You can request permanent deletion of your Pilot Account and economy records at any time via the in-game Feedback panel or by following the instructions on our Privacy Policy & Data Deletion page. Verified requests are completed within 7 days."
+      a: "Submit a Data Deletion request via the in-game Feedback panel or our Support Center (including your Pilot Username/ID). Verified deletion requests are completed permanently within 7 calendar days."
     }
   ]
 };

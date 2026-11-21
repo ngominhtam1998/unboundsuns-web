@@ -55,24 +55,24 @@
           <div class="hero-showcase">
             <aside class="hero-hud-card" aria-label="Featured Flagship Telemetry">
               <div class="hud-header">
-                <span>FLAGSHIP TELEMETRY</span>
+                <span>APEX CAPITAL TELEMETRY</span>
                 <span style="color:var(--gold-bright)">AETHER-01 SHARD</span>
               </div>
               <div class="hud-ship-stage">
-                <img src="assets/img/ships/fns6.png" alt="Sovereign Solar Flagship" />
+                <img src="assets/img/ships/fns7.png" alt="T5 Abyssal Dreadnought" />
               </div>
               <div class="hud-meta-grid">
                 <div class="hud-kv">
-                  <label>Flagship Class</label>
-                  <strong>Sovereign Solar</strong>
+                  <label>Apex Hull Class</label>
+                  <strong>T5 Abyssal Dreadnought</strong>
                 </div>
                 <div class="hud-kv">
                   <label>Simulation Tick</label>
                   <strong style="color:var(--cyan)">20 Hz UDP Auth</strong>
                 </div>
                 <div class="hud-kv">
-                  <label>Sector Cap</label>
-                  <strong>100 Pilots / Zone</strong>
+                  <label>Sector Matrix</label>
+                  <strong>21×17 · 100 Cap/Zone</strong>
                 </div>
                 <div class="hud-kv">
                   <label>Economy Audit</label>
@@ -89,19 +89,19 @@
           <div class="telemetry-grid">
             <div class="telemetry-cell">
               <span class="telemetry-val">349</span>
-              <span class="telemetry-lbl">Interconnected Sectors</span>
+              <span class="telemetry-lbl">21×17 Matrix Sectors</span>
+            </div>
+            <div class="telemetry-cell">
+              <span class="telemetry-val">16</span>
+              <span class="telemetry-lbl">Orbital Citadels</span>
             </div>
             <div class="telemetry-cell">
               <span class="telemetry-val">24</span>
-              <span class="telemetry-lbl">Orbital Citadels</span>
+              <span class="telemetry-lbl">Tactical Landmarks</span>
             </div>
             <div class="telemetry-cell">
               <span class="telemetry-val">100</span>
               <span class="telemetry-lbl">Max Pilots / Sector</span>
-            </div>
-            <div class="telemetry-cell">
-              <span class="telemetry-val">22</span>
-              <span class="telemetry-lbl">Foundry Craft Recipes</span>
             </div>
             <div class="telemetry-cell">
               <span class="telemetry-val">20 HZ</span>
@@ -162,23 +162,23 @@
               <img src="assets/img/scenery/citadel_dyson_halo.png" alt="Citadel Dyson Halo" loading="lazy" />
             </div>
             <div class="pillar-body">
-              <div class="pillar-tag">FLEET WARFARE</div>
-              <h3>Guilds &amp; 100-Pilot Caps</h3>
-              <p>Organize squadrons around shared Guild Vaults, hunt Central PK World Bosses, and enjoy smooth fleet clashes backed by a deterministic 100-pilot zone ceiling.</p>
+              <div class="pillar-tag">SANCTUARIES &amp; CO-OP</div>
+              <h3>Guilds, Homesteads &amp; 100 Cap</h3>
+              <p>Rally in off-grid Guild Sanctuaries &amp; Automated Harvester Homesteads, earn +12% Wingman Co-op bonuses, and clash inside 100-pilot capped sectors.</p>
             </div>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- 3. INTERACTIVE 349-SECTOR LIVE STAR ATLAS (POWERED BY REAL WORLD.JSON) -->
+    <!-- 3. INTERACTIVE 21×17 LIVE STAR CHART (1-TO-1 SYNC WITH MAP_MANIFEST.JSON) -->
     <section class="atlas-section" id="atlas">
       <div class="container">
         <div class="section-header reveal">
-          <div class="eyebrow">LIVE GALACTIC TOPOLOGY</div>
-          <h2 class="section-title">INTERACTIVE <span>349-SECTOR</span> STAR ATLAS</h2>
+          <div class="eyebrow">EXACT IN-GAME 21×17 MATRIX</div>
+          <h2 class="section-title">INTERACTIVE <span>349-SECTOR</span> STAR CHART</h2>
           <p class="section-lead">
-            Inspect the actual warp network running on our cloud shard. Drag to pan, scroll to zoom, filter by security tier, or click any jump gate to plot your route from <code>station_a</code> to <code>central_pk_zone</code>.
+            Exact 1-to-1 galactic matrix from <code>map_manifest.json</code>: outer Blue ring (108), Yellow ring (112), Red ring (76), Black Abyssal Void (53), and the colossal <strong>3×3 Central PK Zone (J8–L10)</strong>. Click any tile to plot the shortest jump route from <strong>Hearthwell (A1)</strong>.
           </p>
         </div>
 
@@ -189,17 +189,18 @@
             <button type="button" class="chip" data-filter="Yellow">Yellow (112)</button>
             <button type="button" class="chip" data-filter="Red">Red Lethal (76)</button>
             <button type="button" class="chip" data-filter="Black">Black Void (53)</button>
-            <button type="button" class="chip" data-filter="STATION">◆ Stations (24)</button>
+            <button type="button" class="chip" data-filter="STATION">◆ Citadels (16)</button>
+            <button type="button" class="chip" data-filter="LANDMARK">✦ Landmarks (24)</button>
           </div>
           <div class="atlas-search">
-            <input id="atlas-search-input" type="search" placeholder="Search sector (e.g. central_pk)…" aria-label="Search sector" />
+            <input id="atlas-search-input" type="search" placeholder="Search name, ID or grid (e.g. A1, Hearthwell)…" aria-label="Search sector" />
           </div>
         </div>
 
         <div class="atlas-shell reveal">
           <div class="atlas-viewport">
-            <canvas id="atlas-canvas" aria-label="Interactive 349-sector map of Unbound Suns"></canvas>
-            <div class="atlas-hint">DRAG TO PAN · SCROLL TO ZOOM · CLICK SECTOR TO INSPECT</div>
+            <canvas id="atlas-canvas" aria-label="Interactive 21x17 Galactic Star Chart of Unbound Suns"></canvas>
+            <div class="atlas-hint">CLICK ANY SECTOR TO PLOT SHORTEST JUMP ROUTE FROM HEARTHWELL (A1)</div>
             <div class="atlas-controls">
               <button type="button" class="atlas-btn" id="atlas-zoom-in" title="Zoom In">+</button>
               <button type="button" class="atlas-btn" id="atlas-zoom-out" title="Zoom Out">−</button>
@@ -207,7 +208,7 @@
             </div>
           </div>
           <aside class="atlas-dossier" id="atlas-dossier">
-            <p style="color:var(--text-secondary)">Loading 349-sector star topology…</p>
+            <p style="color:var(--text-secondary)">Loading 21×17 galactic matrix…</p>
           </aside>
         </div>
       </div>
@@ -218,9 +219,9 @@
       <div class="container">
         <div class="section-header reveal">
           <div class="eyebrow gold">CITADEL SHIPYARD DRYDOCK</div>
-          <h2 class="section-title">COMMAND <span>T1 TO T6</span> WARSHIPS</h2>
+          <h2 class="section-title">COMMAND <span>T1 TO T5</span> WARSHIPS</h2>
           <p class="section-lead">
-            From agile twin-thruster Scout Interceptors to Voidite-forged Abyssal Dreadnoughts. Select any hull below to inspect combat telemetry and authentic Foundry crafting requirements.
+            Every playable ship class—from the starter T1 Frontier Frigate to the Voidite-forged T5 Abyssal Dreadnought—paired with T1–T6 Titanium &amp; Bionic modules crafted at the Citadel Foundry.
           </p>
         </div>
 
@@ -286,7 +287,7 @@
           <div class="eyebrow gold" style="justify-content:center">ENTER THE SINGLE SHARD</div>
           <h2>READY TO LAUNCH YOUR FLEET?</h2>
           <p>
-            Join international pilots across Android and Windows PC on AETHER-01, or visit our standalone Official Web Shop for direct Visa/Mastercard bundles at 30% off in-app prices.
+            Join international pilots across Android and Windows PC on AETHER-01, or visit our standalone Tebex Official Web Shop for Visa, Mastercard &amp; 130+ global payment methods at 30% off in-app prices.
           </p>
           <div class="cta-actions">
             <button type="button" class="btn btn-gold" data-open-play>Deploy to AETHER-01</button>

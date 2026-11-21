@@ -21,7 +21,7 @@
         <div class="dossier-rows" style="margin-bottom:12px">
           <div class="dossier-row"><span>Global Shard</span><strong>${cfg.shardInfo.name}</strong></div>
           <div class="dossier-row"><span>Simulation Engine</span><strong>${cfg.shardInfo.tickRate}</strong></div>
-          <div class="dossier-row"><span>Open World Topology</span><strong>${cfg.shardInfo.sectorCount} Sectors · ${cfg.shardInfo.stationCount} Stations</strong></div>
+          <div class="dossier-row"><span>Open World Topology</span><strong>${cfg.shardInfo.matrixDims || "21×17"} · ${cfg.shardInfo.sectorCount} Sectors · ${cfg.shardInfo.stationCount} Citadels · ${cfg.shardInfo.landmarkCount || 24} Landmarks</strong></div>
           <div class="dossier-row"><span>Sector Ceiling</span><strong>${cfg.shardInfo.zonePilotCap} Pilots / Zone</strong></div>
           <div class="dossier-row"><span>HTTPS API Bridge</span><strong style="color:var(--gold-bright)">Awaiting Custom Domain SSL</strong></div>
         </div>
